@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin/login', [AdminLoginController::class, 'showAdminLoginForm']);
+Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
+
+Route::middleware(['auth:admin'])->group(function () {
+    Route::get('/admin', function() {
+        return 'admin_login';
+    });
+});
