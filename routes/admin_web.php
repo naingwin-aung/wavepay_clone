@@ -23,4 +23,5 @@ Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('adm
 Route::middleware(['auth:admin'])->group(function () {
     Route::resource('admin', AdminUserController::class);
     Route::get('user', [AdminUserController::class, 'userIndex'])->name('users');
+    Route::get('/admin/datatable/ssd', [AdminUserController::class, 'serverSide']);
 });

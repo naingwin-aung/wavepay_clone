@@ -1,5 +1,6 @@
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif!important;
+    font-size: 16px;
 }
 
 .main_content_header {
@@ -8,8 +9,34 @@ body {
 
 footer {
     position: fixed;
-    background-color: black;
+    background-color: white!important;
     bottom: 0;
+}
+
+a {
+    text-decoration: none!important;
+}
+
+.btn_theme {
+    padding : 10px 40px;
+    background-color: #268DC1;
+    border: none;
+    color: white;
+    border: 1.5px solid #268DC1;
+    transition: ease-in 0.3s all;
+}
+
+.btn_theme:hover {
+    color: #268DC1;
+    background-color: white;
+}
+
+.page-item .page-link, .page-item span {
+    border-radius: 3px!important;
+}
+
+.page-item.active .page-link {
+    background-color: #268DC1!important;
 }
 
 @media screen and (max-width : 740px) {
@@ -17,4 +44,22 @@ footer {
        padding-left: 20px;
        padding-right: 20px;
     }
+}
+
+/* User Login */
+.user_login input{
+    border : none;
+    border-bottom: 1.5px solid rgb(198, 198, 198);
+    outline: none;
+    border-radius: 0%;
+    padding: 0;
+}
+
+.user_login .form-control:focus {
+    box-shadow: none!important;
+}
+
+/* Admin Dashboard */
+.logo_color {
+    color: #268DC1;
 }

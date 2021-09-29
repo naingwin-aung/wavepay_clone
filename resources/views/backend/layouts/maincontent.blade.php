@@ -70,7 +70,7 @@
       <!-- Footer -->
       <footer class="footer pt-0">
        <div>
-           Creater by Zen
+           Creator by Zen
        </div>
       </footer>
     </div>

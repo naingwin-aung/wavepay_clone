@@ -6,7 +6,7 @@
         <a class="navbar-brand" href="javascript:void(0)">
           {{-- <img src="assets/img/brand/blue.png" class="navbar-brand-img" alt="..."> --}}
           {{-- <img src="{{asset('/img/brand/blue.png')}}" class="navbar-brand-img" alt="..."> --}}
-          <h2><span class="text-danger font-weight-bold">Wave</span> Pay</h2>
+          <h2><span class="logo_color font-weight-bold">Wave</span> Pay</h2>
         </a>
       </div>
       <div class="navbar-inner">
