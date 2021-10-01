@@ -35,13 +35,9 @@
                 </div>
               </a>
               <div class="dropdown-menu  dropdown-menu-right ">
-                {{-- <a href="#!" class="dropdown-item">
-                  <i class="ni ni-support-16"></i>
-                  <span>Support</span>
-                </a> --}}
                 <form action="{{route('admin.logout')}}" method="POST" id="logout_submit">
                     @csrf
-                    <button class="dropdown-item logout_btn"><i class="fas fa-caret-left"></i>  Logout</button>
+                    <button class="dropdown-item logout_btn">Logout</button>
                 </form>
               </div>
             </li>

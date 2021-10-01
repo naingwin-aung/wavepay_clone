@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnInAdminTable extends Migration
+class AddColumnToUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class AddColumnInAdminTable extends Migration
      */
     public function up()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            $table->string('profile_img')->nullable();
+        Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable();
             $table->string('ip')->nullable();
             $table->text('user_agent')->nullable();
+            $table->timestamp('login_at')->nullable();
         });
     }
 
@@ -28,8 +28,8 @@ class AddColumnInAdminTable extends Migration
      */
     public function down()
     {
-        Schema::table('admins', function (Blueprint $table) {
-            dropColumn(['profile_img', 'phone', 'ip', 'user_agent']);
+        Schema::table('users', function (Blueprint $table) {
+            dropColumn(['phone', 'ip', 'user_agent', 'login_at']);
         });
     }
 }

@@ -7,10 +7,25 @@ body {
     padding-bottom: 0px!important;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 footer {
     position: fixed;
     background-color: white!important;
     bottom: 0;
+    width: 100%!important;
+    padding: 30px 0!important;
+    background-color: white!important;
 }
 
 a {
@@ -23,7 +38,21 @@ a {
     border: none;
     color: white;
     border: 1.5px solid #268DC1;
-    transition: ease-in 0.3s all;
+    transition: ease-in 0.2s all;
+}
+
+.btn_back {
+    padding : 10px 40px;
+    background-color: #e2d34c;
+    border: none;
+    color: white;
+    border: 1.5px solid #e2d34c;
+    transition: ease-in 0.2s all;
+}
+
+.btn_back:hover {
+    color: #e2d34c;
+    background-color: white;
 }
 
 .btn_theme:hover {
@@ -62,4 +91,41 @@ a {
 /* Admin Dashboard */
 .logo_color {
     color: #268DC1;
+}
+/* Datatable */
+.action_icon a{
+    width: 25px;
+    height: 20px;
+    margin: 3px;
+    display: inline-block;
+    text-align: center;
+    background: #eee;
+    border-radius: 3px;
+}
+
+.action_icon a:hover{
+    background: rgb(227, 227, 227);
+}
+
+[type="file"] {
+    color: #878787;
+}
+[type="file"]::-webkit-file-upload-button {
+    background: #268DC1;
+    border: 0px solid #268DC1;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    outline: none;
+    padding: 10px 25px;
+    text-transform: uppercase;
+    transition: all 1s ease;
+}
+
+.preview_img img{
+    margin: 20px 3px 20px;
+    width: 150px;
+    padding: 3px;
+    background: #eee;
 }

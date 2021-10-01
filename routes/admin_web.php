@@ -18,10 +18,10 @@ use App\Http\Controllers\Backend\AdminUserController;
 
 Route::get('/admin/login', [AdminLoginController::class, 'showAdminLoginForm']);
 Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
-Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
 Route::middleware(['auth:admin'])->group(function () {
+    Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
     Route::resource('admin', AdminUserController::class);
-    Route::get('user', [AdminUserController::class, 'userIndex'])->name('users');
     Route::get('/admin/datatable/ssd', [AdminUserController::class, 'serverSide']);
+    Route::get('user', [AdminUserController::class, 'userIndex'])->name('users');
 });

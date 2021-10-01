@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Start your development with a Dashboard for Bootstrap 4.">
     <meta name="author" content="Creative Tim">
+    <meta name="csrf-token" content="{{csrf_token()}}">
+
     <title>@yield('title')</title>
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
@@ -34,6 +36,57 @@
   {{-- Datatable --}}
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+  <!-- Laravel Javascript Validation -->
+  <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+  {{-- Sweet Alert --}}
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      let token = document.head.querySelector('meta[name="csrf-token"]')
+
+      if(token) {
+        $.ajaxSetup({
+          headers : {
+            'X-CSRF-TOKEN' : token.content
+          }
+        })
+      };
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        width : '28em',
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener('mouseenter', Swal.stopTimer)
+          toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+      })
+
+      @if (session('created'))
+        Toast.fire({
+          icon: 'success',
+          title: "{{session('created')}}"
+        })
+      @endif
+
+      @if (session('updated'))
+        Toast.fire({
+          icon: 'success',
+          title: "{{session('updated')}}"
+        })
+      @endif
+
+      $('.btn_back').click(function(e) {
+        e.preventDefault();
+        window.history.go(-1);
+        return false;
+      })
+    })
+  </script>
   @yield('script')
 </body>
 
