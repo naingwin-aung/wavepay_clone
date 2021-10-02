@@ -1,13 +1,13 @@
 @extends('backend.layouts.app')
-@section('title', 'Admin User Create')
-@section('admin_dashboard', 'active')
+@section('title', 'User Create')
+@section('user_dashboard', 'active')
 
 @section('content')
     <div class="d-flex justify-content-center create_form">
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-body">
-                    <form action="{{route('admin.store')}}" method="POST" autocomplete="off" id="admin_create" enctype="multipart/form-data">
+                    <form action="{{route('user.store')}}" method="POST" autocomplete="off" id="user_create" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -22,7 +22,7 @@
                             <input type="number" name="phone" class="form-control">
                         </div>
                         <div class="form-group mb-0">
-                            <label for="name">Profile Img For Admin User</label>
+                            <label for="name">Profile Img For User</label>
                         </div>
                         <input type="file" name="profile_img" id="profile_img">
 
@@ -49,7 +49,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StoreAdminRequest', '#admin_create') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StoreUserRequest', '#user_create') !!}
     <script>
         $(document).ready(function() {
             $('#profile_img').on('change', function() {

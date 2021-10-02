@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Backend\AdminUserController;
 
@@ -23,5 +24,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/admin/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
     Route::resource('admin', AdminUserController::class);
     Route::get('/admin/datatable/ssd', [AdminUserController::class, 'serverSide']);
-    Route::get('user', [AdminUserController::class, 'userIndex'])->name('users');
+
+    Route::resource('user', UserController::class);
+    Route::get('/user/datatable/ssd', [UserController::class, 'serverSide']);
 });

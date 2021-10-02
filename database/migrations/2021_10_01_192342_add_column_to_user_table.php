@@ -15,6 +15,7 @@ class AddColumnToUserTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone')->nullable();
+            $table->string('profile_img')->nullable();
             $table->string('ip')->nullable();
             $table->text('user_agent')->nullable();
             $table->timestamp('login_at')->nullable();
@@ -29,7 +30,7 @@ class AddColumnToUserTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            dropColumn(['phone', 'ip', 'user_agent', 'login_at']);
+            dropColumn(['profile_img', 'phone', 'ip', 'user_agent', 'login_at']);
         });
     }
 }

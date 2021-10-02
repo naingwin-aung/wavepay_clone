@@ -7,14 +7,17 @@
   <a href="{{route('admin.create')}}" class="btn_theme">Create Admin User</a>
 </div>
 <div class="card shadow">
-    <div class="card-body">
+    <div class="card-body" style="width: 100%">
         <table class="table table-bordered" id="datatable" style="width:100%;">
-            <thead>
-                <th class="text-center">Name</th>
-                <th class="text-center">Email</th>
+            <thead class="text-center">
+                <th class="text-center no-sort no-search"></th>
+                <th class="text-center no-sort">Admin User Profile</th>
+                <th class="text-center no-sort">Email</th>
+                <th class="text-center no-sort">Phone</th>
+                <th class="text-center no-sort no-search">User Agent</th>
                 <th class="text-center">Created At</th>
-                <th class="text-center">Action</th>
-                <th class="text-center hidden">Updated_at</th>
+                <th class="text-center no-sort no-search">Action</th>
+                <th class="text-center no-search hidden">Updated_at</th>
             </thead>
         </table>
     </div>
@@ -27,29 +30,46 @@
             let table = $('#datatable').DataTable( {
                 processing: true,
                 serverSide: true,
+                responsive: true,
                 ajax: "/admin/datatable/ssd",
                 language : {
+                  "processing": "<img src='/images/loading.gif' width='65px'/><p>Loading...</p>",
                   "paginate" : {
                     "previous" : '<i class="fas fa-caret-left"></i>',
                     "next" : '<i class="fas fa-caret-right"></i>',
                   }
                 },
                 columns : [
-                  {data: 'name', name: 'name', class: 'text-center'},
+                  {data: 'plus-icon', name: 'plus-icon', class: 'text-center'},
+                  {data: 'profile', name: 'profile', class: 'text-center'},
                   {data: 'email', name: 'email', class: 'text-center'},
+                  {data: 'phone', name: 'phone', class: 'text-center'},
+                  {data: 'user_agent', name: 'user_agent', class: 'text-center'},
                   {data: 'created_at', name: 'created_at', class: 'text-center'},
                   {data: 'action', name: 'action', class: 'text-center'},
                   {data: 'updated_at', name: 'updated_at', class: 'text-center'},
                 ],
                 order : [
-                  [ 4, "desc" ]
+                  [ 7, "desc" ]
                 ],
                 columnDefs : [
                   {
                     targets : 'hidden',
                     visible : false,
                     searchable : false,
-                  }
+                  },
+                  {
+                    targets : 'no-sort',
+                    sortable : false,
+                  },
+                  {
+                    targets : 'no-search',
+                    searchable : false,
+                  },
+                  {
+                    targets: [0],
+                    class : "control"
+                  },  
                 ]
             });
 

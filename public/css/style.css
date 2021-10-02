@@ -7,6 +7,14 @@ body {
     padding-bottom: 0px!important;
 }
 
+.navbar_avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    padding: 3px;
+    background: #edebeb;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -21,10 +29,11 @@ input[type=number] {
 
 footer {
     position: fixed;
+    z-index: 9999;
     background-color: white!important;
     bottom: 0;
     width: 100%!important;
-    padding: 30px 0!important;
+    padding-bottom: 0px!important;
     background-color: white!important;
 }
 
@@ -123,9 +132,79 @@ a {
     transition: all 1s ease;
 }
 
+.thumbnail_img {
+    width: 100px;
+    padding: 4px;
+    background: #eee;
+    border-radius: 3px;
+}
+
 .preview_img img{
     margin: 20px 3px 20px;
     width: 150px;
     padding: 3px;
     background: #eee;
+}
+
+mark {
+    background-color: #268DC1!important;
+}
+
+mark, .mark {
+    padding: 0px!important;
+}
+
+.table th, .table td {
+    vertical-align: middle!important;
+}
+
+table.dataTable>tbody>tr.child ul.dtr-details>li {
+    text-align: left!important;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.child, table.dataTable.dtr-inline.collapsed>tbody>tr>th.child, table.dataTable.dtr-inline.collapsed>tbody>tr>td.dataTables_empty {
+    padding: 10px!important;
+}
+
+@media screen and (max-width : 840px) {
+    div.dataTables_wrapper div.dataTables_filter input {
+        width: 200px!important;
+    }
+
+    h6 {
+        font-size: 18px!important;
+    }
+
+    .create_form {
+        margin-bottom: 50px;
+    }
+
+    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+        text-align: left!important;
+    }
+
+    div.dataTables_wrapper div.dataTables_info {
+        padding: 10px!important;
+    }
+
+    table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+        margin-left: 15px!important;
+    }
+    
+    footer {
+        position: relative;
+        right: 0!important;
+        left: 0!important;
+        padding-top: 20px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+        justify-content: flex-start !important;
+    }
+
+    div.dataTables_wrapper div.dataTables_length, div.dataTables_wrapper div.dataTables_filter, div.dataTables_wrapper div.dataTables_info, div.dataTables_wrapper div.dataTables_paginate {
+        text-align: center!important;
+    }
 }

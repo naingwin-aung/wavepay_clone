@@ -26,11 +26,10 @@
             <li class="nav-item dropdown">
               <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="media align-items-center">
-                  <span class="avatar avatar-sm rounded-circle">
-                    <img alt="Image placeholder" src="{{asset('img/theme/team-4.jpg')}}">
-                  </span>
+                    <img alt="Image placeholder" src="{{auth()->guard('admin')->user()->profile_img_path()}}" class="navbar_avatar">
                   <div class="media-body  ml-2  d-none d-lg-block">
-                    <span class="mb-0 text-sm  font-weight-bold">{{auth()->guard('admin')->user()->name}}</span>
+                    <span class="mb-0 text-sm  font-weight-bold">{{auth()->guard('admin')->user()->name}}</span><br>
+                    <span class="mb-0 text-sm  font-weight-bold">{{auth()->guard('admin')->user()->phone}}</span>
                   </div>
                 </div>
               </a>
@@ -59,15 +58,13 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt-6">
+    <div class="container-fluid py-5">
         <div>
             @yield('content')
         </div>
       <!-- Footer -->
-      <footer class="footer pt-0">
-       <div>
-           Creator by Zen
-       </div>
-      </footer>
     </div>
+    <footer class="footer pt-0">
+      <p class="pl-3 pt-3">Creator by Zen</p>
+    </footer>
   </div>

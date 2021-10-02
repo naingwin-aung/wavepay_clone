@@ -29,6 +29,7 @@ class UpdateAdminRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email|unique:admins,email,'. $id,
             'phone' => ['required','unique:admins,phone,' . $id,'numeric','regex:/^(09|\+?950?9|\+?95950?9)\d{7,9}$/'],
+            'profile_img' => 'nullable|image',
             'password' => 'nullable|min:6|max:20'
         ];
     }

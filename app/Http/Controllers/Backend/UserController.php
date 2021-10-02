@@ -3,28 +3,28 @@
 namespace App\Http\Controllers\Backend;
 
 use Carbon\Carbon;
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreAdminRequest;
-use App\Http\Requests\UpdateAdminRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Storage;
 use Jenssegers\Agent\Agent;
 
-class AdminUserController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        return view('backend.admin.index');
+        return view('backend.user.index');
     }
 
     public function create()
     {
-        return view('backend.admin.create');
+        return view('backend.user.create');
     }
     
-    public function store(StoreAdminRequest $request)
+    public function store(StoreUserRequest $request)
     {
         $profile_img_name = null;
 
@@ -32,51 +32,55 @@ class AdminUserController extends Controller
             $profile_img_file = $request->file('profile_img');
             $profile_img_name = uniqid(). '_'. time() . '.' . $profile_img_file->getClientOriginalExtension();
             Storage::disk('public')->put('images/' . $profile_img_name, file_get_contents($profile_img_file));
+        } else {
+            $profile_img_name = 'user_profile.png';
         }
 
-        Admin::create($request->only('name', 'email', 'phone', 'password')+ ['profile_img' => $profile_img_name]);
+        user::create($request->only('name', 'email', 'phone', 'password')+ ['profile_img' => $profile_img_name]);
 
-        return redirect()->route('admin.index')->with('created', 'Admin User created successfully');
+        return redirect()->route('user.index')->with('created', 'User created successfully');
     }
     
-    public function edit(Admin $admin)
+    public function edit(User $user)
     {
-        return view('backend.admin.edit', compact('admin'));
+        return view('backend.user.edit', compact('user'));
     }
 
-    public function update($id, UpdateAdminRequest $request) 
+    public function update($id, UpdateUserRequest $request) 
     {
-        $admin = Admin::findOrFail($id);
+        $user = User::findOrFail($id);
 
-        $profile_img_name = $admin->profile_img;
+        $profile_img_name = $user->profile_img;
 
         if($request->hasFile('profile_img')) {
-            Storage::disk('public')->delete('images/'.$admin->profile_img);
+            if($user->profile_img !== 'user_profile.png') {
+                Storage::disk('public')->delete('images/'.$user->profile_img);
+            }
 
             $profile_img_file = $request->file('profile_img');
             $profile_img_name = uniqid(). '_'. time() . '.' . $profile_img_file->getClientOriginalExtension();
             Storage::disk('public')->put('images/' . $profile_img_name, file_get_contents($profile_img_file));
         }
 
-        $admin->update($request->only('name', 'email', 'phone')+ ['profile_img' => $profile_img_name]); 
+        $user->update($request->only('name', 'email', 'phone')+ ['profile_img' => $profile_img_name]); 
 
         if($request->filled('password')) {
-            $admin->update($request->only('password'));
+            $user->update($request->only('password'));
         }
 
-        return redirect()->route('admin.index')->with('updated', 'Admin User updated successfully');
+        return redirect()->route('user.index')->with('updated', 'User updated successfully');
     }
 
-    public function destroy(Admin $admin)
+    public function destroy(User $user)
     {
-        $admin->delete();
+        $user->delete();
         return 'success';
     }
 
     public function serverSide()
     {
-        $admin = Admin::query();
-        return datatables($admin)
+        $user = User::query();
+        return datatables($user)
         ->editColumn('created_at', function($each) {
             return Carbon::parse($each->created_at)->toFormattedDateString() . ' - ' .
                 Carbon::parse($each->created_at)->format('H:i:s A');
@@ -122,14 +126,9 @@ class AdminUserController extends Controller
                 Carbon::parse($each->updated_at)->format('H:i:s A');
         })
         ->addColumn('action', function($each) {
-            $edit_icon = '<a href="'.route('admin.edit', $each->id).'"><i class="fas fa-edit text-warning"></i></a>';
-            
-            if($each->id !== Auth::guard('admin')->user()->id) {
-                $delete_icon = '<a href="#" class="delete_btn" data-id="'.$each->id.'"><i class="fas fa-trash text-danger"></i></a>';
-                return '<div class="action_icon">'.$edit_icon. $delete_icon .'</div>';
-            }
-
-            return '<div class="action_icon">'.$edit_icon.'</div>';
+            $edit_icon = '<a href="'.route('user.edit', $each->id).'"><i class="fas fa-edit text-warning"></i></a>';
+            $delete_icon = '<a href="#" class="delete_btn" data-id="'.$each->id.'"><i class="fas fa-trash text-danger"></i></a>';
+            return '<div class="action_icon">'.$edit_icon. $delete_icon .'</div>';
         })
         ->rawColumns(['action', 'profile', 'user_agent'])
         ->toJson();

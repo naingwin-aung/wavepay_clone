@@ -29,7 +29,7 @@
 
                         <div class="preview_img">
                             @if ($admin->profile_img)
-                                <img src="{{$admin->profile_img_path()}}" alt="employee_img">
+                                <img src="{{$admin->profile_img_path()}}" alt="">
                             @endif
                         </div>
 

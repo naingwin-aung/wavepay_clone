@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAdminRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,14 @@ class StoreAdminRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('user');
+
         return [
             'name' => 'required',
-            'email' => 'required|email|unique:admins,email',
-            'phone' => ['required','unique:admins,phone','numeric','regex:/^(09|\+?950?9|\+?95950?9)\d{7,9}$/'],
-            'profile_img' => 'required|image',
-            'password' => 'required|confirmed|min:6|max:20'
+            'email' => 'required|email|unique:users,email,'. $id,
+            'phone' => ['required','unique:users,phone,' . $id,'numeric','regex:/^(09|\+?950?9|\+?95950?9)\d{7,9}$/'],
+            'profile_img' => 'nullable|image',
+            'password' => 'nullable|min:6|max:20'
         ];
     }
 }

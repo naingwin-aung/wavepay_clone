@@ -22,6 +22,11 @@
     {{-- Datatable --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    {{-- Mark css --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/datatables.mark.js/2.0.0/datatables.mark.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.min.css">
+    {{-- Responsive --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
 </head>
 
 <body>
@@ -41,6 +46,12 @@
   {{-- Sweet Alert --}}
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  {{-- Mark js --}}
+  <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+  <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
+  {{-- Responsive --}}
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
   <script>
     $(document).ready(function() {
       let token = document.head.querySelector('meta[name="csrf-token"]')
@@ -85,6 +96,10 @@
         window.history.go(-1);
         return false;
       })
+
+      $.extend(true, $.fn.dataTable.defaults, {
+        mark: true
+      });
     })
   </script>
   @yield('script')

@@ -17,11 +17,7 @@ class User extends Authenticatable
      *
      * @var string[]
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = []; 
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +37,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function profile_img_path() 
+    {
+        if($this->profile_img) {
+            return asset('storage/images/'. $this->profile_img);
+        }
+
+        return null;
+    }
 }

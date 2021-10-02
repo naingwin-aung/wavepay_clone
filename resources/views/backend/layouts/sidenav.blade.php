@@ -21,7 +21,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link @yield('user_dashboard')" href="{{route('users')}}">
+              <a class="nav-link @yield('user_dashboard')" href="{{route('user.index')}}">
                 <i class="fas fa-users text-primary"></i>
                 <span class="nav-link-text">Users</span>
               </a>
