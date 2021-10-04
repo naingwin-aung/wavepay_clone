@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(232, 231, 231);
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.app_bar {
+    background-color: #ffe511;
+    padding: 20px 0px;
+    letter-spacing: -0.6px;
+}
+
+.logo {
+    color: #008cc1;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Sidebar */
+.side_nav {
+    width: 67vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    padding: 20px;
+    display: none;
+}
+
+@keyframes fade_in_show {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 67vw;
+    }
+}
+
+.profile_img {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+}
+
+.side_nav a {
+    color: black;
+}

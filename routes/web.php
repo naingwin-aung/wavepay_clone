@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Frontend\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,6 @@ Auth::routes([
     'confirm' => false
 ]);
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['auth'])->name('user.')->group(function () {
+    Route::get('/', [PageController::class, 'home'])->name('home');
+});

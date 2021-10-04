@@ -40,6 +40,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function username()
+    {
+        return 'phone';
+    }
+
     protected function authenticated(Request $request, $user)
     {
         $user->ip = $request->ip();

@@ -15,12 +15,12 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="email" class="col-md-4 col-form-label">{{ __('Email') }}</label>
+                            <label for="phone" class="col-md-4 col-form-label">{{ __('Phone Number') }}</label>
 
                             <div class="col-md-12">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required>
+                                <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required>
 
-                                @error('email')
+                                @error('phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

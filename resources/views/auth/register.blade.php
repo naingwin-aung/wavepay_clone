@@ -1,69 +1,45 @@
-@extends('layouts.app')
+@extends('backend.layouts.app_plain')
+@section('title', 'Register User')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
+    <div class="row justify-content-center align-items-center" style="height: 100vh">
+        <div class="col-md-7 my-4">
+            <div class="card p-3">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <div class="mb-4 ml-3">
+                        <h4 class="text-primary">Register</h4>
+                        <p class="text-muted mt-3">Sign Up Your Wave Pay Account</p>
+                    </div>
+                    <form method="POST" action="{{ route('register') }}" autocomplete="off" class="user_login" id="register">
                         @csrf
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" class="form-control">    
+                        </div>   
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" class="form-control">    
+                        </div>   
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="number" name="phone" class="form-control">    
+                        </div>   
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" class="form-control">    
+                        </div>   
+                        <div class="form-group">
+                            <label for="name">Confirm Password</label>
+                            <input type="password" name="password_confirmation" class="form-control">    
+                        </div>                        
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                        <div class="d-flex justify-content-between ml-3 mt-4">
+                            <div class="mt-3">
+                                <a href="{{route("login")}}">Already have a account?</a>
                             </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div>
+                                <button type="submit" class="btn_theme">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -74,4 +50,7 @@
         </div>
     </div>
 </div>
+@endsection
+@section('script')
+{!! JsValidator::formRequest('App\Http\Requests\RegisterUserRequest', '#register') !!}
 @endsection
