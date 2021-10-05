@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
@@ -45,8 +46,28 @@ class RegisterController extends Controller
 
     public function register(RegisterUserRequest $request)
     {
-        User::create($request->only('name', 'email', 'phone', 'password') + ['profile_img' => 'user_profile.png']);
-        return redirect(RouteServiceProvider::HOME);
+        DB::beginTransaction();
+        
+        try {
+            $user = User::create($request->only('name', 'email', 'phone', 'password') + ['profile_img' => 'user_profile.png']);
+
+            Wallet::findOrCreate(
+                [
+                    'user_id' => $user_id,
+                ],
+                [
+                    'amount' => 0
+                ]
+            );
+            DB::commit();
+
+            $this->guard()->login($user);
+
+            return redirect(RouteServiceProvider::HOME);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withErrors(['fail' => 'Somethin Wrong'])->withInput();
+        }
     }
     
 }

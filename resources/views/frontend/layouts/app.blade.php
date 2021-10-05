@@ -23,10 +23,10 @@
 <body>
     <div id="app">
         <div class="side_nav">
-            <div class="user_info text-center my-2 mb-4">
-                <img src="{{auth()->user()->profile_img_path()}}" alt="User Image" class="profile_img">
-                <h4>{{auth()->user()->name}}</h4>
-                <p>{{number_format(Auth::user()->wallet->amount)}} <span>ကျပ်</span></p>
+            <div class="user_info text-center mb-4">
+                <img src="{{auth()->user()->profile_img_path()}}" alt="User Image" class="profile_img mb-3">
+                <h5>{{auth()->user()->name}}</h5>
+                <p>{{Auth::user()->wallet ? number_format(Auth::user()->wallet->amount) : ' - '}} <span>ကျပ်</span></p>
             </div>
             <div>
                 <a href="#" class="">
@@ -44,34 +44,51 @@
         </div>
         <div class="app_bar">
             <div class="d-flex justify-content-center">
-                <div class="col-md-8 d-flex justify-content-between">
-                    <a href="#" id="show_sidenav"><i class="fas fa-bars"></i></a>
-                    <h4 class="mb-0 logo">WAVEPAY</h4>
-                    <a href="#"></a>
+                <div class="col-md-8">
+                    <div class="d-flex justify-content-between">
+                        <a href="#" id="show_sidenav"><i class="fas fa-bars"></i></a>
+                        <h4 class="mb-0 logo">WAVEPAY</h4>
+                        <a href="#"></a>
+                    </div>
+                </div>
+            </div>
+            @yield('user_home')
+        </div>
+
+        <main class="py-4 px-1">
+            @yield('content')
+        </main>
+
+        <div class="bottom_bar">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class=" d-flex justify-content-between">
+                        <a href="{{route('user.home')}}"><i class="fas fa-home"></i></a>
+                        <a href="#"><i class="fas fa-home"></i></a>
+                        <a href="#"><i class="fas fa-home"></i></a>
+                        <a href="#"><i class="fas fa-home"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('script')
     <script>
         $(document).ready(function() {
             $('#show_sidenav').click(function(e) {
                 e.preventDefault();
                 $('.side_nav').css("display", "block");
-                $('.side_nav').css("animation-name", "fade_in_show");
-                $('.side_nav').css("animation-duration", "0.8s");
+                // $('.side_nav').css("animation-name", "fade_in_show");
+                // $('.side_nav').css("animation-duration", "0.8s");
             })
 
             document.addEventListener('click', function(event) {
                 if(document.getElementById('show_sidenav') && document.getElementById('show_sidenav').contains(event.target)) {
                     $('.side_nav').css("display", "block");
-                    $('.side_nav').css("animation-name", "fade_in_show");
-                    $('.side_nav').css("animation-duration", "0.8s");
+                    // $('.side_nav').css("animation-name", "fade_in_show");
+                    // $('.side_nav').css("animation-duration", "0.8s");
                     document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
                 }else if(!document.getElementById('show_sidenav').contains(event.target)) {
                     $('.side_nav').css("display", "none");

@@ -3,7 +3,7 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: rgb(232, 231, 231);
+    background-color: rgb(232, 231, 231)!important;
 }
 
 a {
@@ -17,7 +17,27 @@ a:hover {
 .app_bar {
     background-color: #ffe511;
     padding: 20px 0px;
+}
+
+.app_bar h4 {
     letter-spacing: -0.6px;
+}
+
+
+.bottom_bar {
+    position: fixed;
+    background-color: white;
+    z-index: 999999;
+    bottom: 0;
+    width: 100%;
+    margin-top : 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.bottom_bar a i {
+    padding: 20px 0;
+    color: black;
 }
 
 .logo {
@@ -38,15 +58,15 @@ a:hover {
     display: none;
 }
 
-@keyframes fade_in_show {
+/* @keyframes fade_in_show {
     0% {
-        width: 0;
+        width: 0vw;
     }
 
     100% {
         width: 67vw;
     }
-}
+} */
 
 .profile_img {
     width: 60px;
@@ -56,4 +76,50 @@ a:hover {
 
 .side_nav a {
     color: black;
+}
+
+.features {
+    border-radius: 8px;
+}
+
+
+.features img {
+    width: 30px;
+}
+
+.user_home .user_info {
+    position: relative;
+}
+
+.user_home .ps-show-hide{
+    position: absolute;
+    right: 26px;
+    color: rgb(159, 159, 159);
+    top: 37px;
+    cursor: pointer;
+}
+
+/* mobile responsive */
+@media screen and (max-width : 740px) {
+    .features .feature {
+        width: 79px;
+    }
+
+    .features .feature {
+        text-align: center;
+    }
+
+    .features .feature:nth-child(1) {
+        padding-left: 10px;
+        width: 90px;
+    }
+
+    .features .feature:nth-child(2) {
+        padding-right: 27px;
+        width: 90px;
+    }
+    
+    .features .feature:not(:last-child) {
+        border-right: 1px solid #ddd;
+    }
 }
