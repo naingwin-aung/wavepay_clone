@@ -22,4 +22,7 @@ Auth::routes([
 
 Route::middleware(['auth'])->name('user.')->group(function () {
     Route::get('/', [PageController::class, 'home'])->name('home');
+    Route::get('/user-info', [PageController::class, 'userInfo'])->name('info');
+    Route::get('/update_password', [PageController::class, 'updatePasswordForm'])->name('update_passwordform');
+    Route::post('/update_password', [PageController::class, 'updatePassword'])->name('update_password');
 });

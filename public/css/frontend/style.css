@@ -3,11 +3,51 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: rgb(232, 231, 231)!important;
+    background-color: #edf2f6!important;
+}
+
+.btn_theme {
+    padding : 10px 40px;
+    background-color: #268DC1;
+    border: none;
+    color: white;
+    border: 1.5px solid #268DC1;
+    transition: ease-in 0.2s all;
+}
+
+.btn_back {
+    padding : 10px 40px;
+    background-color: #e2d34c;
+    border: none;
+    color: white;
+    border: 1.5px solid #e2d34c;
+    transition: ease-in 0.2s all;
+}
+
+.btn_back:hover {
+    color: #e2d34c;
+    background-color: white;
+}
+
+.btn_theme:hover {
+    color: #268DC1;
+    background-color: white;
 }
 
 a {
     text-decoration: none;
+}
+
+input{
+    border : none!important;
+    border-bottom: 1.5px solid rgb(198, 198, 198)!important;
+    outline: none!important;
+    border-radius: 0%!important;
+    padding: 0!important;
+}
+
+.form-control:focus {
+    box-shadow: none!important;
 }
 
 a:hover {
@@ -18,6 +58,7 @@ a:hover {
     background-color: #ffe511;
     padding: 20px 0px;
 }
+
 
 .app_bar h4 {
     letter-spacing: -0.6px;
@@ -91,13 +132,56 @@ a:hover {
     position: relative;
 }
 
-.user_home .ps-show-hide{
+/* .user_home .ps-show-hide{
     position: absolute;
     right: 26px;
     color: rgb(159, 159, 159);
-    top: 37px;
+    top: 34px;
+    cursor: pointer;
+
+} */
+
+#toggle_btn {
+    color: rgb(159, 159, 159);
     cursor: pointer;
 }
+
+.eng_letter {
+    margin-top: 3px;
+}
+
+hr {
+    margin: 10px 0;
+}
+
+.user_info a{
+    color: black;
+    cursor: pointer;
+}
+
+.preview_img img{
+    margin: 20px 3px 20px;
+    width: 150px;
+    padding: 3px;
+    background: #eee;
+}
+
+[type="file"] {
+    color: #878787;
+}
+[type="file"]::-webkit-file-upload-button {
+    background: #268DC1;
+    border: 0px solid #268DC1;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    outline: none;
+    padding: 10px 25px;
+    text-transform: uppercase;
+    transition: all 1s ease;
+}
+
 
 /* mobile responsive */
 @media screen and (max-width : 740px) {
@@ -121,5 +205,13 @@ a:hover {
     
     .features .feature:not(:last-child) {
         border-right: 1px solid #ddd;
+    }
+
+    .features {
+        position: absolute;
+        margin: 10px;
+        top: -90px;
+        left: 0;
+        right: 0;
     }
 }

@@ -29,7 +29,7 @@
                 <p>{{Auth::user()->wallet ? number_format(Auth::user()->wallet->amount) : ' - '}} <span>ကျပ်</span></p>
             </div>
             <div>
-                <a href="#" class="">
+                <a href="{{route('user.info')}}" class="">
                     <div class="d-flex justify-content-between">
                         <div>
                             <i class="fas fa-user"></i>
@@ -40,8 +40,23 @@
                     </div>
                 </a>
                 <hr>
+                <a href="#" class="logout_btn">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="mr-4">
+                            ထွက်မည်။
+                        </div>
+                        <form action="{{route('logout')}}" method="POST" id="logout_submit">
+                            @csrf
+                        </form>
+                    </div>
+                </a>
+                <hr>
             </div>
         </div>
+        
         <div class="app_bar">
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
@@ -54,7 +69,7 @@
             </div>
             @yield('user_home')
         </div>
-
+        
         <main class="py-4 px-1">
             @yield('content')
         </main>
@@ -74,6 +89,8 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <!-- Laravel Javascript Validation -->
+  <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
     @yield('script')
     <script>
         $(document).ready(function() {
@@ -95,6 +112,17 @@
                     document.body.style.backgroundColor = 'white';
                 }
             });
+
+            $('.btn_back').click(function(e) {
+                e.preventDefault();
+                window.history.go(-1);
+                return false;
+            })
+
+            $('.logout_btn').click(function(e) {
+                e.preventDefault();
+                $('#logout_submit').submit();
+            })
         })
     </script>
 </body>

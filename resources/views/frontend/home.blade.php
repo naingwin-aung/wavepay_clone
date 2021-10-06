@@ -1,15 +1,14 @@
 @extends('frontend.layouts.app')
 
 @section('user_home')
-    <div class="px-2 my-4 user_home">
+    <div class="px-2 pb-5 my-4 user_home">
         <div class="col-md-5">
             <div class="d-flex justify-conten-between">
                 <img src="{{$auth_user->profile_img_path()}}" class="profile_img mr-3" alt="User Image">
-                <div class="user_info">
+                <div class="user_info mt-2">
                     <h5 class="font-weight-bold">{{$auth_user->name}}</h5>
-                        <h5 id="is_show" class="show toggle_wallet">***** ကျပ်</h5>
-                        <i class="fas fa-eye-slash ps-show-hide"></i>
-                    </div>
+                    <h5 id="is_show" class="show toggle_wallet">***** ကျပ် <i class="fas fa-eye-slash ps-show-hide" id="toggle_btn"></i></h5>
+                </div>
             </div>
         </div>
     </div>
@@ -40,19 +39,17 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            $('.ps-show-hide').click(function() {
+            $(document).on('click', '.ps-show-hide', function(e) {
                 if($('#is_show').hasClass('show')) {
-                    $('.ps-show-hide').removeClass('fa-eye-slash').addClass('fa-eye');
                     $('.toggle_wallet').html('');
-                    $('.toggle_wallet').html('{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}} ကျပ်');
+                    $('.toggle_wallet').html('{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}} ကျပ် <i class="fas fa-eye ps-show-hide" id="toggle_btn"></i>');
                     $('#is_show').removeClass('show');
-                } else if(!$('#is_show').hasClass('show')) {
-                    $('.ps-show-hide').removeClass('fa-eye').addClass('fa-eye-slash');
+                } else if (!$('#is_show').hasClass('show')){   
                     $('.toggle_wallet').html('');
-                    $('.toggle_wallet').html('***** ကျပ်');
+                    $('.toggle_wallet').html('***** ကျပ် <i class="fas fa-eye-slash ps-show-hide" id="toggle_btn"></i>');
                     $('#is_show').addClass('show');
                 }
-            }) 
+            })
         })
     </script>
 @endsection
