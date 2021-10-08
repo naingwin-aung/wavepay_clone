@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Exception;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -49,25 +51,36 @@ class RegisterController extends Controller
         DB::beginTransaction();
         
         try {
-            $user = User::create($request->only('name', 'email', 'phone', 'password') + ['profile_img' => 'user_profile.png']);
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->password = $request->password;
+            $user->profile_img = 'user_profile.png';
+            $user->ip = $request->ip();
+            $user->user_agent = $request->server('HTTP_USER_AGENT');
+            $user->login_at = Carbon::now();
+            $user->save();
 
-            Wallet::findOrCreate(
+            Wallet::firstOrCreate(
                 [
-                    'user_id' => $user_id,
+                    'user_id' => $user->id,
                 ],
                 [
-                    'amount' => 0
+                    'amount' => 0,
                 ]
             );
-            DB::commit();
 
+            DB::commit();
+            
             $this->guard()->login($user);
 
             return redirect(RouteServiceProvider::HOME);
         } catch (\Exception $e) {
             DB::rollback();
-            return back()->withErrors(['fail' => 'Somethin Wrong'])->withInput();
+            return back()->withErrors(['fail' => 'Something Wrong'])->withInput();
         }
+       
+
     }
-    
 }

@@ -1,4 +1,6 @@
 @extends('frontend.layouts.app')
+@section('title', 'User Information')
+
 
 @section('content')
     <div class="user_info">
@@ -53,7 +55,7 @@
              
                  <div class="card mt-2">
                      <div class="card-body">
-                         <a href="{{route('user.update_passwordform')}}" class="mb-0"><i class="fas fa-caret-right mr-4"></i> ကိုယ်ရေးအချက်အလက်များ ပြင်ဆင်မည်။</a>
+                         <a href="{{route('user.userUpdateInfo')}}" class="mb-0"><i class="fas fa-caret-right mr-4"></i> ကိုယ်ရေးအချက်အလက်များ ပြင်ဆင်မည်။</a>
                      </div>
                  </div>
              </div>

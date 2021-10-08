@@ -1,8 +1,8 @@
 @extends('frontend.layouts.app')
-@section('user_dashboard', 'active')
+@section('title', 'User Change Password')
 
 @section('content')
-    <div class="d-flex justify-content-center mb-5">
+    <div class="d-flex justify-content-center user_update">
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-body">

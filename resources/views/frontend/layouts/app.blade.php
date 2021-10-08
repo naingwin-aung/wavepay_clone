@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
     {{-- Font Awesome --}}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
@@ -26,11 +26,11 @@
             <div class="user_info text-center mb-4">
                 <img src="{{auth()->user()->profile_img_path()}}" alt="User Image" class="profile_img mb-3">
                 <h5>{{auth()->user()->name}}</h5>
-                <p>{{Auth::user()->wallet ? number_format(Auth::user()->wallet->amount) : ' - '}} <span>ကျပ်</span></p>
+                <p class="text-primary">{{Auth::user()->wallet ? number_format(Auth::user()->wallet->amount) : ' - '}} <span>ကျပ်</span></p>
             </div>
             <div>
                 <a href="{{route('user.info')}}" class="">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-around">
                         <div>
                             <i class="fas fa-user"></i>
                         </div>
@@ -41,7 +41,7 @@
                 </a>
                 <hr>
                 <a href="#" class="logout_btn">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-around">
                         <div>
                             <i class="fas fa-sign-out-alt"></i>
                         </div>
@@ -78,19 +78,32 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class=" d-flex justify-content-between">
-                        <a href="{{route('user.home')}}"><i class="fas fa-home"></i></a>
-                        <a href="#"><i class="fas fa-home"></i></a>
-                        <a href="#"><i class="fas fa-home"></i></a>
-                        <a href="#"><i class="fas fa-home"></i></a>
+                        <div class="text-center">
+                            <a href="{{route('user.home')}}"><i class="fas fa-home p-0"></i> <p class="mb-0">ပင်မ</p></a>
+                        </div>
+                        <div class="text-center">
+                            <a href="#"><img src="{{asset('images/qr-code.png')}}" alt="Qr-code"> <p class="mb-0">My QR</p></a>
+                        </div>
+                        <div class="text-center">
+                            <a href="#"><img src="{{asset('images/scan.png')}}" alt="Qr-code"> <p class="mb-0">QR ပေး</p></a>
+                        </div>
+                        <div class="text-center">
+                            <a href="#"><img src="{{asset('images/envelope.png')}}" alt="Qr-code"> <p class="mb-0">၀င်စာ</p></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- Laravel Javascript Validation -->
-  <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('vendor/jsvalidation/js/jsvalidation.js')}}"></script>
+    {{-- Sweet Alert --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     @yield('script')
     <script>
         $(document).ready(function() {

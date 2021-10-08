@@ -15,7 +15,19 @@ body {
     transition: ease-in 0.2s all;
 }
 
-.btn_back {
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+#update_password .btn_back {
     padding : 10px 40px;
     background-color: #e2d34c;
     border: none;
@@ -38,7 +50,7 @@ a {
     text-decoration: none;
 }
 
-input{
+input, .swal2-input{
     border : none!important;
     border-bottom: 1.5px solid rgb(198, 198, 198)!important;
     outline: none!important;
@@ -46,7 +58,11 @@ input{
     padding: 0!important;
 }
 
-.form-control:focus {
+.swal2-title {
+    font-size: 20px!important;
+}
+
+.form-control:focus, .swal2-input:focus {
     box-shadow: none!important;
 }
 
@@ -72,12 +88,20 @@ a:hover {
     bottom: 0;
     width: 100%;
     margin-top : 20px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 15px 10px 15px 10px;
 }
 
 .bottom_bar a i {
-    padding: 20px 0;
+   width: 28px;
+    color: black;
+}
+
+.bottom_bar a img {
+   width: 23px;
+}
+
+
+.bottom_bar p {
     color: black;
 }
 
@@ -97,6 +121,10 @@ a:hover {
     background-color: white;
     padding: 20px;
     display: none;
+}
+
+.user_update {
+    margin-bottom: 80px;
 }
 
 /* @keyframes fade_in_show {
@@ -128,6 +156,11 @@ a:hover {
     width: 30px;
 }
 
+.features a {
+    color: black;
+}
+
+
 .user_home .user_info {
     position: relative;
 }
@@ -147,7 +180,7 @@ a:hover {
 }
 
 .eng_letter {
-    margin-top: 3px;
+    margin-top: 3px!important;
 }
 
 hr {
@@ -182,6 +215,20 @@ hr {
     transition: all 1s ease;
 }
 
+/* Transfer */
+.transfer {
+    position: relative;
+}
+
+.transfer input, .transfer_amount input {
+    color: rgb(162, 160, 160)!important;
+}
+
+.transfer i {
+    position: absolute;
+    right: 30px;
+    top: 60px;
+}
 
 /* mobile responsive */
 @media screen and (max-width : 740px) {

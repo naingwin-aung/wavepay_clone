@@ -1,10 +1,13 @@
 @extends('frontend.layouts.app')
-
+@section('title', 'WavePay Clone')
+    
 @section('user_home')
     <div class="px-2 pb-5 my-4 user_home">
         <div class="col-md-5">
             <div class="d-flex justify-conten-between">
-                <img src="{{$auth_user->profile_img_path()}}" class="profile_img mr-3" alt="User Image">
+                <a href="{{route('user.info')}}">
+                    <img src="{{$auth_user->profile_img_path()}}" class="profile_img mr-3" alt="User Image">
+                </a>
                 <div class="user_info mt-2">
                     <h5 class="font-weight-bold">{{$auth_user->name}}</h5>
                     <h5 id="is_show" class="show toggle_wallet">***** ကျပ် <i class="fas fa-eye-slash ps-show-hide" id="toggle_btn"></i></h5>
@@ -19,18 +22,18 @@
         <div class="card shadow-sm features">
             <div class="card-body pl-1 pr-3">
                 <div class="d-flex justify-content-between">
-                    <div class="feature">
+                    <a href="{{route('user.transferForm')}}" class="feature">
                         <img src="{{asset('/images/transfer.png')}}" class="mb-3" alt="">
                         <p class="mb-0">ငွေလွှဲ</p>
-                    </div>
-                    <div class="feature">
+                    </a>
+                    <a class="feature">
                         <img src="{{asset('/images/transaction.png')}}" class="mb-3" alt="">
                         <p class="mb-0">စာရင်း</p>
-                    </div>
-                    <div class="feature">
+                    </a>
+                    <a class="feature">
                         <img src="{{asset('/images/wallet.png')}}" class="mb-3" alt="">
                         <p class="mb-0">ငွေသွင်း/ထုတ်</p>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
