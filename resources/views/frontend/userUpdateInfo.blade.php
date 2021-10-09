@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', 'User Change Password')
+@section('subtitle', 'WavePay')
 
 @section('content')
     <div class="d-flex justify-content-center user_update">

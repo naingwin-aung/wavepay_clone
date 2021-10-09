@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', 'WavePay Clone')
+@section('subtitle', 'WavePay')
     
 @section('user_home')
     <div class="px-2 pb-5 my-4 user_home">
@@ -26,7 +27,7 @@
                         <img src="{{asset('/images/transfer.png')}}" class="mb-3" alt="">
                         <p class="mb-0">ငွေလွှဲ</p>
                     </a>
-                    <a class="feature">
+                    <a href="{{route('user.transaction')}}" class="feature">
                         <img src="{{asset('/images/transaction.png')}}" class="mb-3" alt="">
                         <p class="mb-0">စာရင်း</p>
                     </a>

@@ -1,8 +1,12 @@
 @extends('frontend.layouts.app')
 @section('title', 'Transfer Amount')
+@section('subtitle', 'WavePay')
 
 @section('content')
     <div class="transfer_amount">
+        <a href="#" class="btn_back">
+            <i class="fas fa-arrow-left mb-4 ml-3"></i>
+        </a>
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -24,7 +28,9 @@
                             <div class="card mt-3 border-danger">
                                 <div class="card-body">
                                     @foreach ($errors->all() as $error)
-                                        <p class="mb-0">{{$error}}</p>                                    
+                                        <div class="text-center">
+                                            <p class="mb-0">{{$error}}</p>                                    
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>

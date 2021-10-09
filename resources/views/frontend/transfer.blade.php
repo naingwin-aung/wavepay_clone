@@ -1,5 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', 'Transfer')
+@section('subtitle', 'WavePay')
 
 @section('content')
     <div class="transfer">

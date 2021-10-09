@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\TransferFormRequest;
+use App\Notifications\GeneralNotification;
 use App\Http\Requests\UpdatePasswordRequest;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\TransferCompleteRequest;
 use App\Http\Requests\TransferAmountFormRequest;
 
@@ -60,6 +62,14 @@ class PageController extends Controller
         $user->profile_img = $profile_img_name;
         $user->password = $request->password;
         $user->save();
+
+        $title = 'လျို့၀ှက်နံပါတ် ပြောင်းလဲခြင်း';
+        $message = 'လျို့၀ှက်နံပါတ်အောင်မြင်စွာ ပြောင်းလဲပြီးပါပီ';
+        $sourceable_id = $user->id;
+        $sourceable_type = User::class;
+        $web_link = url('user-info');
+
+        Notification::send($user, new GeneralNotification($title, $message, $sourceable_id, $sourceable_type, $web_link));
 
         return redirect()->route('user.info')->with('update_password', 'လျှို့ ဝှက်နံပါတ် ပြောင်းလဲပြီးပါပီ။');
     }
@@ -200,5 +210,13 @@ class PageController extends Controller
         $user = Auth::user();
         $transaction = Transaction::with('user', 'source')->where('user_id', $user->id)->where('trx_id', $trx_id)->first();
         return view('frontend.transactionDetail', compact('transaction'));
+    }
+
+    public function transaction()
+    {
+        $user = Auth::user();
+        $transactions = Transaction::with('user', 'source')->where('user_id', $user->id)->orderBy('created_at', 'DESC')->get();
+
+        return view('frontend.transaction', compact('transactions'));
     }
 }

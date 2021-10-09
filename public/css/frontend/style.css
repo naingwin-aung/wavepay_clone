@@ -29,16 +29,10 @@ input[type=number] {
 
 #update_password .btn_back {
     padding : 10px 40px;
-    background-color: #e2d34c;
+    background-color: rgb(201, 201, 201);
     border: none;
-    color: white;
-    border: 1.5px solid #e2d34c;
+    color: #3f3f3f;
     transition: ease-in 0.2s all;
-}
-
-.btn_back:hover {
-    color: #e2d34c;
-    background-color: white;
 }
 
 .btn_theme:hover {
@@ -228,6 +222,24 @@ hr {
     position: absolute;
     right: 30px;
     top: 60px;
+}
+.transaction_detail .trx_id {
+    letter-spacing: 0.8px;
+}
+
+.transaction_detail {
+    position: relative;
+}
+
+.success img {
+    position: absolute;
+    top: -26px;
+    right: 43%;
+    width: 55px;
+}
+
+.transaction {
+    margin-bottom: 70px;
 }
 
 /* mobile responsive */

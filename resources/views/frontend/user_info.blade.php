@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 @section('title', 'User Information')
-
+@section('subtitle', 'WavePay')
 
 @section('content')
     <div class="user_info">
@@ -29,7 +29,7 @@
                                  <p class="mb-0 mr-3 text-right">လက်ကျန်ငွေ</p>
                              </div>
                              <div class="col-6 pl-0">
-                                 <p class="mb-0 mr-3 eng_letter">{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}} ကျပ်</p>
+                                 <p class="mb-0 mr-3 eng_letter"><span class="text-primary">{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}}</span> ကျပ်</p>
                              </div>
                          </div>
                      <hr>

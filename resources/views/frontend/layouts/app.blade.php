@@ -61,8 +61,14 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        <a href="#" id="show_sidenav"><i class="fas fa-bars"></i></a>
-                        <h4 class="mb-0 logo">WAVEPAY</h4>
+                        @if (Request::is('transaction'))
+                            <a href="#" class="btn_back">
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        @else
+                            <a href="#" id="show_sidenav"><i class="fas fa-bars"></i></a>
+                        @endif
+                        <h4 class="mb-0 logo">@yield('subtitle')</h4>
                         <a href="#"></a>
                     </div>
                 </div>
@@ -103,7 +109,8 @@
     {{-- Sweet Alert --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    {{-- Push Noti --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @yield('script')
     <script>
         $(document).ready(function() {

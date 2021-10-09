@@ -1,9 +1,12 @@
 @extends('frontend.layouts.app')
 @section('title', 'Transfer Confirm')
+@section('subtitle', 'WavePay')
 
 @section('content')
     <div class="transfer_confirm">
-        <i class="fas fa-arrow-left mb-4 ml-3"></i>
+        <a href="#" class="btn_back">
+            <i class="fas fa-arrow-left mb-4 ml-3"></i>
+        </a>
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -28,7 +31,8 @@
                                 </div>
                             </div>
                             <hr>
-    
+                            
+                            <p class="mt-4 mb-0">လက်ကျန်ငွေ - <span class="eng_letter text-primary">{{number_format($remainingAmount)}}</span> ကျပ်</p>
                             <button type="submit" class="btn btn-primary btn-block confirm-btn mt-5">သေချာပါသည်။</button>
                         </form>
     
