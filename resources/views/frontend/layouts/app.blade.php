@@ -21,6 +21,7 @@
     <link href="{{ asset('css/frontend/style.css') }}" rel="stylesheet">
 </head>
 <body>
+    <div id="overlay"></div>
     <div id="app">
         <div class="side_nav">
             <div class="user_info text-center mb-4">
@@ -116,20 +117,17 @@
         $(document).ready(function() {
             $('#show_sidenav').click(function(e) {
                 e.preventDefault();
-                $('.side_nav').css("display", "block");
-                // $('.side_nav').css("animation-name", "fade_in_show");
-                // $('.side_nav').css("animation-duration", "0.8s");
+                $('.side_nav').css("width", "67%");
+                document.getElementById("overlay").style.display = "block";    
             })
 
             document.addEventListener('click', function(event) {
                 if(document.getElementById('show_sidenav') && document.getElementById('show_sidenav').contains(event.target)) {
-                    $('.side_nav').css("display", "block");
-                    // $('.side_nav').css("animation-name", "fade_in_show");
-                    // $('.side_nav').css("animation-duration", "0.8s");
-                    document.body.style.backgroundColor = 'rgba(0,0,0,0.4)';
-                }else if(!document.getElementById('show_sidenav').contains(event.target)) {
-                    $('.side_nav').css("display", "none");
-                    document.body.style.backgroundColor = 'white';
+                    $('.side_nav').css("width", "67%");
+                    document.getElementById("overlay").style.display = "block";    
+                }else if(!document.querySelector('.side_nav').contains(event.target)) {
+                    $('.side_nav').css("width", "0");
+                    document.getElementById("overlay").style.display = "none";    
                 }
             });
 
@@ -141,7 +139,18 @@
 
             $('.logout_btn').click(function(e) {
                 e.preventDefault();
-                $('#logout_submit').submit();
+                swal({
+                    text: "You want to Logout!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    width : '28px'
+                    })
+                    .then((willLogout) => {
+                    if (willLogout) {
+                        $('#logout_submit').submit();
+                    }
+                });
             })
         })
     </script>

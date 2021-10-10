@@ -3,7 +3,7 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background-color: #edf2f6!important;
+    background-color: #edf2f6;
 }
 
 .btn_theme {
@@ -74,11 +74,10 @@ a:hover {
     letter-spacing: -0.6px;
 }
 
-
 .bottom_bar {
     position: fixed;
     background-color: white;
-    z-index: 999999;
+    z-index: 998;
     bottom: 0;
     width: 100%;
     margin-top : 20px;
@@ -106,30 +105,34 @@ a:hover {
 
 /* Sidebar */
 .side_nav {
-    width: 67vw;
-    height: 100vh;
+    height: 100%;
+    width: 0;
     position: fixed;
+    z-index: 1000;
     top: 0;
     left: 0;
-    z-index: 1000;
     background-color: white;
-    padding: 20px;
+    overflow-x: hidden;
+    transition: 0.3s;	
+    padding-top: 30px;
+}
+
+#overlay {
+    position: fixed;
     display: none;
+    width: 100%;    
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 999;
 }
 
 .user_update {
     margin-bottom: 80px;
 }
-
-/* @keyframes fade_in_show {
-    0% {
-        width: 0vw;
-    }
-
-    100% {
-        width: 67vw;
-    }
-} */
 
 .profile_img {
     width: 60px;
@@ -158,15 +161,6 @@ a:hover {
 .user_home .user_info {
     position: relative;
 }
-
-/* .user_home .ps-show-hide{
-    position: absolute;
-    right: 26px;
-    color: rgb(159, 159, 159);
-    top: 34px;
-    cursor: pointer;
-
-} */
 
 #toggle_btn {
     color: rgb(159, 159, 159);
@@ -272,5 +266,11 @@ hr {
         top: -90px;
         left: 0;
         right: 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .swal-modal {
+        width: calc(80% - 20px)!important;
     }
 }

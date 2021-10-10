@@ -11,7 +11,7 @@
                         <form action="{{route('user.transferAmountForm')}}" id="transfer" autocomplete="off">
                             <div class="form-group">
                                 <label>ငွေလက်ခံသူ</label>
-                                <input type="number" class="form-control" name="to_phone" value="{{old('to_phone')}}><i class="fas fa-user"></i>
+                                <input type="number" class="form-control" name="to_phone" value="{{old('to_phone')}}"><i class="fas fa-user"></i>
                             </div>
     
                             <button type="submit" class="btn btn-primary btn-block">ရှေ့ဆက်ရန်</button>
