@@ -62,7 +62,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        @if (Request::is('transaction'))
+                        @if (Request::is('transaction') || Request::is('top-up'))
                             <a href="#" class="btn_back">
                                 <i class="fas fa-arrow-left"></i>
                             </a>
@@ -87,9 +87,9 @@
                     <div class=" d-flex justify-content-between">
                         <div class="text-center">
                             <a href="{{route('user.home')}}"><i class="fas fa-home p-0"></i> <p class="mb-0">ပင်မ</p></a>
-                        </div>
+                        </div>  
                         <div class="text-center">
-                            <a href="#"><img src="{{asset('images/qr-code.png')}}" alt="Qr-code"> <p class="mb-0">My QR</p></a>
+                            <a href="{{route('user.receiveQr')}}"><img src="{{asset('images/qr-code.png')}}" alt="Qr-code"> <p class="mb-0">My QR</p></a>
                         </div>
                         <div class="text-center">
                             <a href="#"><img src="{{asset('images/scan.png')}}" alt="Qr-code"> <p class="mb-0">QR ပေး</p></a>
@@ -112,6 +112,8 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- Push Noti --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    {{-- Jscroll --}}
+    <script src="//unpkg.com/jscroll/dist/jquery.jscroll.min.js"></script>
     @yield('script')
     <script>
         $(document).ready(function() {

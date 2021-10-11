@@ -32,4 +32,7 @@ Route::middleware(['auth'])->name('user.')->group(function () {
     Route::post('/transfer-complete', [PageController::class, 'transferComplete'])->name('transferComplete');
     Route::get('/transaction-detail/{trx_id}', [PageController::class, 'transactionDetail'])->name('transactionDetail');
     Route::get('/transaction', [PageController::class, 'transaction'])->name('transaction');
+    Route::get('/receive-qr', [PageController::class, 'receiveQr'])->name('receiveQr');
+    Route::get('/top-up', [PageController::class, 'topUp'])->name('topUp');
+    Route::post('/top-up', [PageController::class, 'fillTopUp'])->name('topUp');
 });

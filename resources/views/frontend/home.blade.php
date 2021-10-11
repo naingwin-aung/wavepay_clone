@@ -39,6 +39,18 @@
             </div>
         </div>
     </div>
+    <div class="card mt-5 mx-2 another_features">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-4 text-center">
+                    <a href="{{route('user.topUp')}}" class="">
+                        <img src="{{asset('/images/topup.png')}}" class="mb-3" alt="">
+                        <p class="mb-0">ဖုန်းငွေဖြည့်</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script>
