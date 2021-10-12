@@ -13,16 +13,16 @@
                     <p class="font-weight-bold">အော်ပရေတာ</p>
                     <div class="d-flex justify-content-between mt-4">
                       <div>
-                          <span class="operator mb-0 {{$userPhoneName === 'telenor' ? 'active' : ''}}">Telenor</span>
+                          <span class="operator mb-0 {{$userPhoneName === 'telenor' ? 'active' : ''}}" id="operators">Telenor</span>
                       </div>
                       <div>
-                          <span class="operator mb-0  {{$userPhoneName === 'ooredoo' ? 'active' : ''}}">Ooredoo</span>
+                          <span class="operator mb-0 {{$userPhoneName === 'ooredoo' ? 'active' : ''}}" id="operators">Ooredoo</span>
                       </div>
                       <div>
-                          <span class="operator mb-0 {{$userPhoneName === 'mpt' ? 'active' : ''}}">MPT</span>
+                          <span class="operator mb-0 {{$userPhoneName === 'mpt' ? 'active' : ''}}" id="operators">MPT</span>
                       </div>
                       <div>
-                          <span class="operator mb-0 {{$userPhoneName === 'mytel' ? 'active' : ''}}">Mytel</span>
+                          <span class="operator mb-0 {{$userPhoneName === 'mytel' ? 'active' : ''}}" id="operators">Mytel</span>
                       </div>
                     </div>
                 </div>
@@ -30,10 +30,10 @@
                 
                 <div class="topup_amount">
                     <h5>ငွေပမာဏထည့်ပါ</h5>
-                    <p class="mt-3">လက်ကျန်ငွေ {{$user->wallet ? number_format($user->wallet->amount) : '- '}} ကျပ်</p>
+                    <p class="mt-2">လက်ကျန်ငွေ {{$user->wallet ? number_format($user->wallet->amount) : '- '}} ကျပ်</p>
 
-                    <form action="{{route('user.topUp')}}" method="POST" id="topup">
-                        @csrf
+                    <form action="{{route('user.topUpConfirm')}}" method="GET" id="topup" class="mt-4">
+                        <input type="hidden" name="userPhoneName" value="{{$userPhoneName}}">
                         <div class="row">
                             <div class="col-4 mb-2">
                                 <div class="form-check">
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <input type="number" class="form-control another_amount" name="another_topup" placeholder="အခြားပမာဏ">
+                            <input type="number" class="form-control another_amount" name="another_topup_amount" placeholder="အခြားပမာဏ" value="{{old('another_topup_amount')}}">
                         </div>
 
                         @include('frontend.layouts.flash')
@@ -92,6 +92,7 @@
     </div>
 @endsection
 @section('script')
+{!! JsValidator::formRequest('App\Http\Requests\TopUpRequest', '#topup') !!}
 
 <script>
     $(document).ready(function() {

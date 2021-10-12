@@ -15,12 +15,12 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('ref_no');
-            $table->string('trx_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('source_id');
-            $table->decimal('trx_amount', 20, 2);
-            $table->enum('type', ['income', 'expense']);
+            $table->string('ref_no')->nullable();
+            $table->string('trx_id')->nullable();
+            $table->bigInteger('user_id')->nullable();
+            $table->bigInteger('source_id')->nullable();
+            $table->decimal('trx_amount', 20, 2)->nullable();
+            $table->enum('type', ['income', 'expense'])->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

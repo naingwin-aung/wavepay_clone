@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use App\Helper\UUIDGenerate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\TopUpRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -256,8 +257,132 @@ class PageController extends Controller
         return view('frontend.topUp', compact('user', 'userPhoneName'));        
     }
 
-    public function fillTopUp(Request $request)
+    public function topUpConfirm(TopUpRequest $request)
     {
-        return $request->all();
+        $user = Auth::user();
+        $another_topup_amount = $request->another_topup_amount;
+
+        $phone = $user->phone;
+        $ooredoo = "/^(09|\+?959)9(5|7|6)\d{7}$/";
+        $telenor = "/^(09|\+?959)7([5-9])\d{7}$/";
+        $mytel = "/^(09|\+?959)6(8|9)\d{7}$/";
+        $mpt = "/^(09|\+?959)(5\d{6}|4\d{7,8}|2\d{6,8}|3\d{7,8}|6\d{6}|8\d{6}|7\d{7}|9(0|1|9)\d{5,6}|2[0-4]\d{5}|5[0-6]\d{5}|8[13-7]\d{5}|3[0-369]\d{6}|34\d{7}|4[1379]\d{6}|73\d{6}|91\d{6}|25\d{7}|26[0-5]\d{6}|40[0-4]\d{6}|42\d{7}|45\d{7}|89[6789]\d{6}|)$/";
+        $userPhoneName = '';
+
+        if(preg_match($ooredoo, $phone)) {
+            $userPhoneName = 'ooredoo';
+        }
+
+        if(preg_match($telenor, $phone)) {
+            $userPhoneName = 'telenor';
+        }
+
+        if(preg_match($mytel, $phone)) {
+            $userPhoneName = 'mytel';
+        }
+
+        if(preg_match($mpt, $phone)) {
+            $userPhoneName = 'mpt';
+        }
+
+        if($userPhoneName !== $request->userPhoneName) {
+            return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
+        }
+
+        if(!$another_topup_amount) {
+            if(!$request->topup_amount) {
+                return back()->withErrors(['fails' => 'ပမာဏ ထည့်ရန်လိုအပ်သည်။'])->withInput();
+            }
+        }
+
+        if($another_topup_amount) {
+            $fillBill = $another_topup_amount % 1000;
+            if($fillBill !== 0 || $another_topup_amount > 30000) {
+                return back()->withErrors(['fails' => 'ပမာဏသည် ၁၀၀၀ နှင့်စား၍ပြတ်ပြီး အများဆုံး ၃၀၀၀၀ ဖြစ်ရမည်၊'])->withInput();
+            }
+        }
+
+        if($user->wallet->amount < $request->topup_amount || $user->wallet->amount < $another_topup_amount) {
+            return back()->withErrors(['fails' => 'ပမာဏ မလုံလောက်ပါ။'])->withInput();
+        }
+
+        $bill_amount = $another_topup_amount ?? $request->topup_amount;
+
+        $remainingAmount = $user->wallet->amount - $bill_amount;
+
+        return view('frontend.topUpCompleteForm', compact('user', 'bill_amount', 'remainingAmount', 'userPhoneName'));
+    }
+
+    public function topUpComplete(Request $request)
+    {
+        $user = Auth::user();
+        $phone = $user->phone;
+        $ooredoo = "/^(09|\+?959)9(5|7|6)\d{7}$/";
+        $telenor = "/^(09|\+?959)7([5-9])\d{7}$/";
+        $mytel = "/^(09|\+?959)6(8|9)\d{7}$/";
+        $mpt = "/^(09|\+?959)(5\d{6}|4\d{7,8}|2\d{6,8}|3\d{7,8}|6\d{6}|8\d{6}|7\d{7}|9(0|1|9)\d{5,6}|2[0-4]\d{5}|5[0-6]\d{5}|8[13-7]\d{5}|3[0-369]\d{6}|34\d{7}|4[1379]\d{6}|73\d{6}|91\d{6}|25\d{7}|26[0-5]\d{6}|40[0-4]\d{6}|42\d{7}|45\d{7}|89[6789]\d{6}|)$/";
+        $userPhoneName = '';
+
+        if(preg_match($ooredoo, $phone)) {
+            $userPhoneName = 'ooredoo';
+        }
+
+        if(preg_match($telenor, $phone)) {
+            $userPhoneName = 'telenor';
+        }
+
+        if(preg_match($mytel, $phone)) {
+            $userPhoneName = 'mytel';
+        }
+
+        if(preg_match($mpt, $phone)) {
+            $userPhoneName = 'mpt';
+        }
+
+        $bill_amount = $request->bill_amount;
+
+        if(!$bill_amount) {
+            return back()->withErrors(['fails' => 'ပမာဏ ထည့်ရန်လိုအပ်သည်။'])->withInput();
+        }
+
+        if($user->wallet->amount < $bill_amount) {
+            return back()->withErrors(['fails' => 'ပမာဏ မလုံလောက်ပါ။'])->withInput();
+        }
+
+        if($bill_amount > 500) {
+            $fillBill = $bill_amount % 1000;
+            if($fillBill !== 0 || $bill_amount > 30000) {
+                return back()->withErrors(['fails' => 'ပမာဏသည် ၁၀၀၀ နှင့်စား၍ပြတ်ပြီး အများဆုံး ၃၀၀၀၀ ဖြစ်ရမည်၊'])->withInput();
+            }
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $user->wallet->decrement('amount', $bill_amount);
+            $user->wallet->update();
+
+            // $from_account = Auth::user();
+
+            $transaction_bill = new Transaction();
+            $transaction_bill->trx_id = UUIDGenerate::trxId();
+            $transaction_bill->user_id = $user->id;
+            $transaction_bill->trx_amount = $bill_amount;
+            $transaction_bill->type = 'expense';
+            $transaction_bill->save();
+            
+            DB::commit();
+            return redirect()->route('user.topUpDetail', $transaction_bill->trx_id)->with('success', 'အောင်မြင်ပါသည်။');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
+        }
+    }
+
+    public function topUpDetail($trx_id)
+    {
+        $user = Auth::user();
+        $transaction = Transaction::with('user')->where('user_id', $user->id)->where('trx_id', $trx_id)->first();
+        return view('frontend.topUpDetail', compact('transaction'));
     }
 }
