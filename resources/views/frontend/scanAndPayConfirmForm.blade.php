@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title', 'Transfer Confirm')
+@section('title', 'Scan And Pay Confirm')
 @section('subtitle', 'WavePay')
 
 @section('content')
@@ -11,7 +11,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{route('user.transferComplete')}}" id="transfer" method="POST" autocomplete="off">
+                        <form action="{{route('user.scanAndPayComplete')}}" id="scan_and_pay_confirm" method="POST" autocomplete="off">
                             @csrf
                             <input type="hidden" name="to_phone" value="{{$to_account->phone}}">
                             <input type="hidden" name="amount" value="{{$amount}}">
@@ -54,7 +54,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\TransferCompleteRequest', '#transfer') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\ScanAndPayFormRequest', '#scan_and_pay_confirm') !!}
     <script>
         $(document).ready(function() {
             $('.confirm-btn').on('click', function(e) {
@@ -79,7 +79,7 @@
                             type : `GET`,
                             success : function(res) {
                                if(res.status == 'success') {
-                                    $('#transfer').submit();
+                                    $('#scan_and_pay_confirm').submit();
                                }
                                if(res.status == 'fail') {
                                     Swal.fire({

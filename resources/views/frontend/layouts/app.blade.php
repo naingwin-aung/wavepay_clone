@@ -92,7 +92,7 @@
                             <a href="{{route('user.receiveQr')}}"><img src="{{asset('images/qr-code.png')}}" alt="Qr-code"> <p class="mb-0">My QR</p></a>
                         </div>
                         <div class="text-center">
-                            <a href="#"><img src="{{asset('images/scan.png')}}" alt="Qr-code"> <p class="mb-0">QR ပေး</p></a>
+                            <a href="{{route('user.scanAndPay')}}"><img src="{{asset('images/scan.png')}}" alt="Qr-code"> <p class="mb-0">QR ပေး</p></a>
                         </div>
                         <div class="text-center">
                             <a href="#"><img src="{{asset('images/envelope.png')}}" alt="Qr-code"> <p class="mb-0">၀င်စာ</p></a>
@@ -114,6 +114,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/1.0.8/push.min.js" integrity="sha512-eiqtDDb4GUVCSqOSOTz/s/eiU4B31GrdSb17aPAA4Lv/Cjc8o+hnDvuNkgXhSI5yHuDvYkuojMaQmrB5JB31XQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     {{-- Jscroll --}}
     <script src="//unpkg.com/jscroll/dist/jquery.jscroll.min.js"></script>
+    {{-- Scan --}}
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
     @yield('script')
     <script>
         $(document).ready(function() {

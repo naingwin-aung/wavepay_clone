@@ -1,4 +1,4 @@
-@extends('backend.layouts.app_plain')
+@extends('frontend.layouts.app_plain')
 @section('title', 'Register User')
 
 @section('content')
@@ -7,7 +7,7 @@
         <div class="col-md-7 my-4">
             <div class="card p-3">
                 <div class="card-body">
-                    <div class="mb-4 ml-3">
+                    <div class="mb-4">
                         <h4 class="text-primary">Register</h4>
                         <p class="text-muted mt-3">Sign Up Your Wave Pay Account</p>
                     </div>

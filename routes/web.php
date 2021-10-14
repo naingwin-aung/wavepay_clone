@@ -38,4 +38,8 @@ Route::middleware(['auth'])->name('user.')->group(function () {
     Route::get('/top-up-complete', [PageController::class, 'topUpCompleteForm'])->name('topUpCompleteForm');
     Route::post('/top-up-complete', [PageController::class, 'topUpComplete'])->name('topUpComplete');
     Route::get('/top-up-detail/{trx_id}', [PageController::class, 'topUpDetail'])->name('topUpDetail');
+    Route::get('/scan-and-pay', [PageController::class, 'scanAndPay'])->name('scanAndPay');
+    Route::get('/scan-and-pay-form', [PageController::class, 'scanAndPayForm'])->name('scanAndPayForm');
+    Route::get('/scan-and-pay-confirm', [PageController::class, 'scanAndPayConfirmForm'])->name('scanAndPayConfirmForm');
+    Route::post('/scan-and-pay-complete', [PageController::class, 'scanAndPayComplete'])->name('scanAndPayComplete');
 });
