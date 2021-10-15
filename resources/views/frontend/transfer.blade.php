@@ -36,4 +36,9 @@
 @endsection
 @section('script')
     {!! JsValidator::formRequest('App\Http\Requests\TransferFormRequest', '#transfer') !!}
+    <script>
+        $(document).ready(function() {
+            $("input[type=number]").focus();
+        })
+    </script>
 @endsection

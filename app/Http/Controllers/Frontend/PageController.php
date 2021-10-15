@@ -46,11 +46,10 @@ class PageController extends Controller
         $user = Auth::user();
 
         if(!Hash::check($request->current_password, $user->password)) {
-            return back()->withErrors(['fail' => 'Your password is wrong'])->withInput();
+            return back()->withErrors(['fail' => 'လျှို့၀ှက် နံပါတ် မှားယွင်းနေပါသည်။'])->withInput();
         }
 
         $profile_img_name = $user->profile_img;
-
         if($request->hasFile('profile_img')) {
             if($user->profile_img !== 'user_profile.png') {
                 Storage::disk('public')->delete('images/'.$user->profile_img);
@@ -62,18 +61,20 @@ class PageController extends Controller
         }
 
         $user->profile_img = $profile_img_name;
-        $user->password = $request->password;
+        if($request->filled('password')) {
+            $user->password = $request->password;
+        }
         $user->save();
 
-        $title = 'လျို့၀ှက်နံပါတ် ပြောင်းလဲခြင်း';
-        $message = 'လျို့၀ှက်နံပါတ်အောင်မြင်စွာ ပြောင်းလဲပြီးပါပီ';
+        $title = 'လျို့၀ှက်နံပါတ် (သို့) ပုံ ပြောင်းလဲခြင်း';
+        $message = 'လျို့၀ှက်နံပါတ် (သို့) ပုံအောင်မြင်စွာ ပြောင်းလဲပြီးပါပီ';
         $sourceable_id = $user->id;
         $sourceable_type = User::class;
         $web_link = url('user-info');
 
         Notification::send($user, new GeneralNotification($title, $message, $sourceable_id, $sourceable_type, $web_link));
 
-        return redirect()->route('user.info')->with('update_password', 'လျှို့ ဝှက်နံပါတ် ပြောင်းလဲပြီးပါပီ။');
+        return redirect()->route('user.info')->with('update_password', 'လျှို့ ဝှက်နံပါတ် (သို့) ပုံပြောင်းလဲပြီးပါပီ။');
     }
 
     public function transferForm()
@@ -200,7 +201,7 @@ class PageController extends Controller
 
             // From Noti
             $title = 'Money Transfered!';
-            $message = 'Your wallet transfered ' . number_format($amount) . ' MMK to '. $to_account->name . ' ('. $to_account->phone .')';
+            $message = 'ငွေလွှဲလိုက်သော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို လက်ခံသူ '. $to_account->name . ' ('. $to_account->phone .')' . ' သို့ပေးပို့ပြီးပါပြီ။';
             $sourceable_id = $from_account_transaction->id; 
             $sourceable_type = Transaction::class; 
             $web_link = url('/transaction/detail/' . $from_account_transaction->trx_id);
@@ -215,7 +216,7 @@ class PageController extends Controller
 
             // To Noti
             $title = 'Money Received!';
-            $message = 'Your wallet received ' . number_format($amount) . ' MMK from '. $from_account->name . ' ('. $from_account->phone .')';
+            $message = 'ငွေလက်ခံရရှိသော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို '. $from_account->name . ' ('. $from_account->phone .')' . ' ဆီမှရရှိပါသည်';
             $sourceable_id = $to_account_transaction->id; 
             $sourceable_type = Transaction::class; 
             $web_link = url('/transaction/detail/' . $to_account_transaction->trx_id);
@@ -229,7 +230,7 @@ class PageController extends Controller
             Notification::send([$to_account], new GeneralNotification($title, $message, $sourceable_id, $sourceable_type, $web_link, $deep_link));
 
             DB::commit();
-            return redirect()->route('user.transactionDetail', $from_account_transaction->trx_id)->with('success', 'အောင်မြင်ပါသည်။');
+            return redirect()->route('user.transactionDetail', $from_account_transaction->trx_id)->with('money_transfer', 'ငွေလွှဲလိုက်သော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို လက်ခံသူ '. $to_account->name . ' ('. $to_account->phone .')' . ' သို့ပေးပို့ပြီးပါပြီ။');
        } catch (\Exception $e) {
            DB::rollback();
            return back()->withErrors(['fails' => 'ပြန်လည်ကြိူးစားပါ။'])->withInput();
@@ -392,8 +393,6 @@ class PageController extends Controller
             $user->wallet->decrement('amount', $bill_amount);
             $user->wallet->update();
 
-            // $from_account = Auth::user();
-
             $transaction_bill = new Transaction();
             $transaction_bill->trx_id = UUIDGenerate::trxId();
             $transaction_bill->user_id = $user->id;
@@ -402,7 +401,7 @@ class PageController extends Controller
             $transaction_bill->save();
             
             DB::commit();
-            return redirect()->route('user.topUpDetail', $transaction_bill->trx_id)->with('success', 'အောင်မြင်ပါသည်။');
+            return redirect()->route('user.topUpDetail', $transaction_bill->trx_id)->with('fill_bill', 'ဖုန်းဘေလ် '. number_format($bill_amount) .' ကျပ် ဖြည့်ပြီးပါပြီ။');
         } catch (\Exception $e) {
             DB::rollback();
             return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
@@ -516,7 +515,7 @@ class PageController extends Controller
 
             // From Noti
             $title = 'Money Transfered!';
-            $message = 'Your wallet transfered ' . number_format($amount) . ' MMK to '. $to_account->name . ' ('. $to_account->phone .')';
+            $message = 'ငွေလွှဲလိုက်သော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို လက်ခံသူ '. $to_account->name . ' ('. $to_account->phone .')' . ' သို့ပေးပို့ပြီးပါပြီ။';
             $sourceable_id = $from_account_transaction->id; 
             $sourceable_type = Transaction::class; 
             $web_link = url('/transaction/detail/' . $from_account_transaction->trx_id);
@@ -531,7 +530,7 @@ class PageController extends Controller
 
             // To Noti
             $title = 'Money Received!';
-            $message = 'Your wallet received ' . number_format($amount) . ' MMK from '. $from_account->name . ' ('. $from_account->phone .')';
+            $message = 'ငွေလက်ခံရရှိသော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို '. $from_account->name . ' ('. $from_account->phone .')' . ' ဆီမှရရှိပါသည်';
             $sourceable_id = $to_account_transaction->id; 
             $sourceable_type = Transaction::class; 
             $web_link = url('/transaction/detail/' . $to_account_transaction->trx_id);
@@ -546,7 +545,7 @@ class PageController extends Controller
 
             DB::commit();
 
-            return redirect()->route('user.transactionDetail', $from_account_transaction->trx_id)->with('success', 'အောင်မြင်ပါသည်။');
+            return redirect()->route('user.transactionDetail', $from_account_transaction->trx_id)->with('money_transfer', 'ငွေလွှဲလိုက်သော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို လက်ခံသူ '. $to_account->name . ' ('. $to_account->phone .')' . ' သို့ပေးပို့ပြီးပါပြီ။');
        } catch (\Exception $e) {
            DB::rollback();
            return back()->withErrors(['fails' => 'ပြန်လည်ကြိူးစားပါ။'])->withInput();

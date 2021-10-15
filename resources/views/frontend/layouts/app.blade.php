@@ -94,8 +94,13 @@
                         <div class="text-center">
                             <a href="{{route('user.scanAndPay')}}"><img src="{{asset('images/scan.png')}}" alt="Qr-code"> <p class="mb-0">QR ပေး</p></a>
                         </div>
-                        <div class="text-center">
-                            <a href="#"><img src="{{asset('images/envelope.png')}}" alt="Qr-code"> <p class="mb-0">၀င်စာ</p></a>
+                        <div class="text-center bottom_notification">
+                            @if ($unread_noti_count != 0)
+                                <span class="badge badge-pill badge-danger noti_badge">
+                                    {{$unread_noti_count}}
+                                </span>
+                            @endif
+                            <a href="{{route('user.notificationindex')}}"><img src="{{asset('images/envelope.png')}}" alt="Qr-code"> <p class="mb-0">၀င်စာ</p></a>
                         </div>
                     </div>
                 </div>
@@ -157,6 +162,34 @@
                 });
             })
         })
+
+        @if(session('fill_bill'))
+            Push.create("Top Up", {
+                body: '{{session('fill_bill')}}',
+                timeout : 3000,
+                onClick: function () {
+                    location.href = '/';
+                }
+            })
+            .catch(e => {
+                alert('Please enable notification');
+                console.log(e);
+            })
+        @endif
+
+        @if(session('money_transfer'))
+            Push.create("Transfer Money", {
+                body: '{{session('money_transfer')}}',
+                requireInteraction : true,
+                onClick: function () {
+                    location.href = '/notification';
+                }
+            })
+            .catch(e => {
+                alert('Please enable notification');
+                console.log(e);
+            })
+        @endif
     </script>
 </body>
 </html>

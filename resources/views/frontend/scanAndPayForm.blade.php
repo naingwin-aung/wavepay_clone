@@ -44,4 +44,9 @@
 @endsection
 @section('script')
     {!! JsValidator::formRequest('App\Http\Requests\ScanAndPayFormRequest', '#scan_and_pay') !!}
+    <script>
+        $(document).ready(function() {
+            $("input[type=number]").focus();
+        })
+    </script>
 @endsection

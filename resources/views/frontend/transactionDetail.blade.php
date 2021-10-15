@@ -14,7 +14,11 @@
                         <div class="text-center mb-4">
                             <h5 class="mb-3">အောင်မြင်ပါတယ်</h5>
                             <h4 class="mb-4"><span class="text-primary">{{number_format($transaction->trx_amount)}}</span> ကျပ်</h4>
-                            <h5 class="mb-4">သို့</h5>
+                            @if ($transaction->type == 'income')
+                                <h5 class="mb-4">မှ</h5>
+                            @else
+                                <h5 class="mb-4">သို့</h5>
+                            @endif
                             <h4 class="font-weight-bold">{{$transaction->source ? str_replace(0, '', $transaction->source->phone) : ' - '}}</h4>
                         </div>
                         <hr>

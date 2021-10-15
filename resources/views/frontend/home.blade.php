@@ -31,15 +31,15 @@
                         <img src="{{asset('/images/transaction.png')}}" class="mb-3" alt="">
                         <p class="mb-0">စာရင်း</p>
                     </a>
-                    <a class="feature">
-                        <img src="{{asset('/images/wallet.png')}}" class="mb-3" alt="">
-                        <p class="mb-0">ငွေသွင်း/ထုတ်</p>
+                    <a href="{{route('user.topUp')}}" class="feature">
+                        <img src="{{asset('/images/topup.png')}}" class="mb-3" alt="">
+                        <p class="mb-0">ဖုန်းငွေဖြည့်</p>
                     </a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="card mt-5 mx-2 another_features">
+    {{-- <div class="card mt-5 mx-2 another_features">
         <div class="card-body">
             <div class="row">
                 <div class="col-4 text-center">
@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 @section('script')
     <script>

@@ -269,6 +269,24 @@ hr {
     background-color: #edf2f6;
 }
 
+.notification a {
+    color: black;
+}
+
+.bottom_notification {
+    position: relative;
+}
+
+.bottom_notification span {
+    position: absolute;
+    right: -4px;
+    top: -4px;
+}
+
+.notification {
+    margin-bottom: 65px;
+}
+
 /* mobile responsive */
 @media screen and (max-width: 740px) {
     .features .feature {
