@@ -9,7 +9,9 @@
                 <h5 class="pb-5 text-center">ငွေလက်ခံရန် ငွေပို့မည့်သူကို QR ကုဒ် ပြလိုက်ပါ</h5>
                 <div class="d-flex justify-content-center mt-5">
                     <div class="text-center p-4 qr-code">
-                        {!! QrCode::size(170)->generate($user->phone); !!}
+                        {{-- {!! QrCode::size(170)->generate($user->phone); !!} --}}
+                        {{-- {{$qr_code}} --}}
+                        <img src="data:image/png;base64, {!! base64_encode(QrCode::format('png')->size(170)->generate($user->phone)) !!} ">
                     </div>
                 </div>
                 <div class="text-center mt-2">

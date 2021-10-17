@@ -15,6 +15,7 @@ use App\Http\Requests\StoreUserRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\TransferFormRequest;
 use App\Notifications\GeneralNotification;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use App\Http\Requests\ScanAndPayFormRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use Illuminate\Support\Facades\Notification;
@@ -256,7 +257,8 @@ class PageController extends Controller
     {
         $user = Auth::user();
         $phone = $user->phone;
-        return view('frontend.receive-qr', compact('user'));
+        $qr_code = QrCode::size(170)->generate($user->phone);
+        return view('frontend.receive-qr', compact('user', 'qr_code'));
     }
 
     public function topUp()
