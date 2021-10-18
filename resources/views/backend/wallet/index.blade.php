@@ -1,22 +1,19 @@
 @extends('backend.layouts.app')
-@section('title', 'Admin Users Management')
-@section('admin_dashboard', 'active')
+@section('title', 'Users Wallet')
+@section('wallet_dashboard', 'active')
 
 @section('content')
 <div class="mb-4">
-  <a href="{{route('admin.create')}}" class="btn_theme"><i class="fas fa-user-circle pr-2"></i> Create Admin User</a>
+  <a href="{{route('wallet.addamount')}}" class="btn_theme"><i class="fas fa-plus-circle"></i> Add Amount</a>
 </div>
 <div class="card shadow">
     <div class="card-body" style="width: 100%">
         <table class="table table-bordered" id="datatable" style="width:100%;">
             <thead class="text-center">
                 <th class="text-center no-sort no-search"></th>
-                <th class="text-center no-sort">Admin User Profile</th>
-                <th class="text-center no-sort">Email</th>
-                <th class="text-center no-sort">Phone</th>
-                <th class="text-center no-sort no-search">User Agent</th>
+                <th class="text-center no-sort">Account Person</th>
+                <th class="text-center">Amount</th>
                 <th class="text-center">Created At</th>
-                <th class="text-center no-sort no-search">Action</th>
                 <th class="text-center no-search hidden">Updated_at</th>
             </thead>
         </table>
@@ -31,7 +28,7 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: "/admin/datatable/ssd",
+                ajax: "/wallet/datatable/ssd",
                 language : {
                   "processing": "<img src='/images/loading.gif' width='65px'/><p>Loading...</p>",
                   "paginate" : {
@@ -41,16 +38,13 @@
                 },
                 columns : [
                   {data: 'plus-icon', name: 'plus-icon', class: 'text-center'},
-                  {data: 'profile', name: 'profile', class: 'text-center'},
-                  {data: 'email', name: 'email', class: 'text-center'},
-                  {data: 'phone', name: 'phone', class: 'text-center'},
-                  {data: 'user_agent', name: 'user_agent', class: 'text-center'},
+                  {data: 'account_person', name: 'account_person', class: 'text-center'},
+                  {data: 'amount', name: 'amount', class: 'text-center'},
                   {data: 'created_at', name: 'created_at', class: 'text-center'},
-                  {data: 'action', name: 'action', class: 'text-center'},
                   {data: 'updated_at', name: 'updated_at', class: 'text-center'},
                 ],
                 order : [
-                  [ 7, "desc" ]
+                  [ 4, "desc" ]
                 ],
                 columnDefs : [
                   {
@@ -72,27 +66,6 @@
                   },  
                 ]
             });
-
-            $(document).on('click', '.delete_btn', function(e) {
-              e.preventDefault();
-              swal({
-                text: "Are you sure? You want to delete this user!",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-              })
-              .then((willDelete) => {
-                if (willDelete) {
-                  let id = $(this).data('id');
-                  $.ajax({
-                    url : `/admin/${id}`,
-                    method : 'DELETE',
-                  }).done(function(res) {
-                      table.ajax.reload();
-                  })
-                }
-              });
-            })
         })
     </script>
 @endsection

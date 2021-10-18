@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.min.css">
     {{-- Responsive --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css">
+    {{-- Select 2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -52,6 +54,8 @@
   {{-- Responsive --}}
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap4.min.js"></script>
+{{-- Select 2 --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
     $(document).ready(function() {
       let token = document.head.querySelector('meta[name="csrf-token"]')
@@ -100,6 +104,21 @@
       $.extend(true, $.fn.dataTable.defaults, {
         mark: true
       });
+
+      $('#logout_btn').click(function(e) {
+        e.preventDefault();
+        swal({
+            text: "You want to Logout!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willLogout) => {
+            if (willLogout) {
+                $('#logout_submit').submit();
+            }
+        });
+      })
     })
   </script>
   @yield('script')

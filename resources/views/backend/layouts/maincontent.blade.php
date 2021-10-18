@@ -34,9 +34,12 @@
                 </div>
               </a>
               <div class="dropdown-menu  dropdown-menu-right ">
+                <div class="text-center">
+                  <a href="#" id="logout_btn"><i class="fas fa-sign-out-alt pr-2"></i> Logout</a>
+                </div>
                 <form action="{{route('admin.logout')}}" method="POST" id="logout_submit">
                     @csrf
-                    <button class="dropdown-item logout_btn">Logout</button>
+                    {{-- <button class="dropdown-item logout_btn">Logout</button> --}}
                 </form>
               </div>
             </li>

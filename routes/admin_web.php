@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Backend\WalletController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Backend\AdminUserController;
 
@@ -27,4 +28,10 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::resource('user', UserController::class);
     Route::get('/user/datatable/ssd', [UserController::class, 'serverSide']);
+
+    Route::get('wallet', [WalletController::class, 'index'])->name('wallet.index');
+    Route::get('/wallet/datatable/ssd', [WalletController::class, 'serverSide']);
+
+    Route::get('/wallet/addAmount', [WalletController::class, 'addAmountForm'])->name('wallet.addamount');
+    Route::post('/wallet/addAmount', [WalletController::class, 'addAmount'])->name('wallet.addAmountuser');
 });

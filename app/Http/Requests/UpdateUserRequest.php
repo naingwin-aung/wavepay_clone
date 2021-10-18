@@ -30,7 +30,7 @@ class UpdateUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email,'. $id,
             'phone' => ['required','unique:users,phone,' . $id,'numeric','regex:/^(09|\+?950?9|\+?95950?9)\d{7,9}$/'],
             'profile_img' => 'nullable|image',
-            'password' => 'nullable|min:6|max:20'
+            'password' => 'nullable|confirmed|digits:4'
         ];
     }
 }

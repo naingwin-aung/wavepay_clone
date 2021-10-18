@@ -4,13 +4,15 @@ namespace App\Http\Controllers\Backend;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Wallet;
+use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Storage;
-use Jenssegers\Agent\Agent;
+use App\Http\Requests\UpdateUserRequest;
 
 class UserController extends Controller
 {
@@ -36,9 +38,36 @@ class UserController extends Controller
             $profile_img_name = 'user_profile.png';
         }
 
-        user::create($request->only('name', 'email', 'phone', 'password')+ ['profile_img' => $profile_img_name]);
+        DB::beginTransaction();
+        
+        try {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->password = $request->password;
+            $user->profile_img = $profile_img_name;
+            $user->ip = $request->ip();
+            $user->user_agent = $request->server('HTTP_USER_AGENT');
+            $user->login_at = Carbon::now();
+            $user->save();
 
-        return redirect()->route('user.index')->with('created', 'User created successfully');
+            Wallet::firstOrCreate(
+                [
+                    'user_id' => $user->id,
+                ],
+                [
+                    'amount' => 0,
+                ]
+            );
+
+            DB::commit();
+            
+            return redirect()->route('user.index')->with('created', 'User created successfully');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return back()->withErrors(['fail' => 'Something Wrong'])->withInput();
+        }
     }
     
     public function edit(User $user)

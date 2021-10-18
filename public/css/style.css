@@ -166,6 +166,18 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child, table.dataTable.dtr-inli
     padding: 10px!important;
 }
 
+.select2-container .select2-selection--single {
+    padding-bottom: 32px !important;
+}
+
+.select2-search--dropdown .select2-search__field {
+    outline: none!important;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    display: inline!important;
+}
+
 @media screen and (max-width : 840px) {
     div.dataTables_wrapper div.dataTables_filter input {
         width: 200px!important;

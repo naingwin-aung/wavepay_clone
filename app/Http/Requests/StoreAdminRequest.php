@@ -28,7 +28,7 @@ class StoreAdminRequest extends FormRequest
             'email' => 'required|email|unique:admins,email',
             'phone' => ['required','unique:admins,phone','numeric','regex:/^(09|\+?950?9|\+?95950?9)\d{7,9}$/'],
             'profile_img' => 'required|image',
-            'password' => 'required|confirmed|min:6|max:20'
+            'password' => 'required|confirmed|min:6|max:20',
         ];
     }
 }

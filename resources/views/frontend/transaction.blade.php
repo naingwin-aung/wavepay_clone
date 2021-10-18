@@ -41,6 +41,9 @@
                                         @if ($transaction->source_id)
                                                 <p class="mb-1">{{$transaction->type == 'income' ? 'မှ' : 'သို့'}} - <span class="eng_letter">{{$transaction->source ? $transaction->source->phone : ' - '}}</span></p>
                                         @endif
+                                        @if ($transaction->source_id === 0)
+                                            <p class="mb-1">Wave Pay ဆိုင် မှ</span></p>
+                                        @endif
                                         <p class="mb-1">လုပ်ငန်းစဥ်အမှတ်- {{$transaction->trx_id}}</p>
                                         </div>
                                         <div class="col-3 px-0 text-right">

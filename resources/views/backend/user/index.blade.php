@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="mb-4">
-  <a href="{{route('user.create')}}" class="btn_theme">Create User</a>
+  <a href="{{route('user.create')}}" class="btn_theme"><i class="fas fa-user-plus pr-2"></i> Create User</a>
 </div>
 <div class="card shadow">
     <div class="card-body" style="width: 100%">

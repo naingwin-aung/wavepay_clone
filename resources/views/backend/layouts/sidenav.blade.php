@@ -26,6 +26,12 @@
                 <span class="nav-link-text">Users</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link @yield('wallet_dashboard')" href="{{route('wallet.index')}}">
+                <i class="fas fa-wallet text-primary"></i>
+                <span class="nav-link-text">Wallet</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
