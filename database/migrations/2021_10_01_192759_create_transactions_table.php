@@ -22,6 +22,9 @@ class CreateTransactionsTable extends Migration
             $table->decimal('trx_amount', 20, 2)->nullable();
             $table->enum('type', ['income', 'expense'])->nullable();
             $table->text('description')->nullable();
+            $table->string('bill_phonenumber')->nullable();
+            $table->string('operator_name')->nullable();
+            $table->decimal('bill_amount', 20, 2)->nullable();
             $table->timestamps();
         });
     }

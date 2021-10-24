@@ -14,11 +14,13 @@
                         <form action="{{route('user.topUpComplete')}}" method="POST" autocomplete="off" id="top_up_complete">
                             @csrf
                             <input type="hidden" name="bill_amount" value="{{$bill_amount}}">
+                            <input type="hidden" name="bill_phone" value="{{$bill_phone}}">
+                            <input type="hidden" name="billPhoneName" value="{{$billPhoneName}}">
                             <div class="text-center mb-4">
                                 <h5 class="mb-3">ဖုန်းဘေလ်ဖြည့်ခြင်း</h5>
                                 <h4 class="mb-3"><span class="text-primary">{{number_format($bill_amount)}}</span> ကျပ်</h4>
                                 <h5 class="mb-3">for</h5>
-                                <h4 class="font-weight-bold">{{ str_replace(0, '', $user->phone) }}</h4>
+                                <h4 class="font-weight-bold">{{ str_replace(0, '', $bill_phone) }}</h4>
                             </div>
                             <hr>
                             <div class="row">
@@ -26,7 +28,7 @@
                                     <p class="mb-0">အော်ပရေတာ</p> 
                                 </div>
                                 <div class="col-6 text-right">
-                                    <p class="eng_letter mb-0"><span class="font-weight-bold">{{ucfirst($userPhoneName)}}</span></p>
+                                    <p class="eng_letter mb-0"><span class="font-weight-bold">{{ucfirst($billPhoneName)}}</span></p>
                                 </div>
                             </div>
                             <hr>

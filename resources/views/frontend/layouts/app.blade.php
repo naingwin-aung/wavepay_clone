@@ -166,7 +166,7 @@
         @if(session('fill_bill'))
             Push.create("Top Up", {
                 body: '{{session('fill_bill')}}',
-                timeout : 3000,
+                timeout : 4000,
                 onClick: function () {
                     location.href = '/';
                 }

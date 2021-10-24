@@ -34,7 +34,8 @@ Route::middleware(['auth'])->name('user.')->group(function () {
     Route::get('/transaction/detail/{trx_id}', [PageController::class, 'transactionDetail'])->name('transactionDetail');
     Route::get('/transaction', [PageController::class, 'transaction'])->name('transaction');
     Route::get('/receive-qr', [PageController::class, 'receiveQr'])->name('receiveQr');
-    Route::get('/top-up', [PageController::class, 'topUp'])->name('topUp');
+    Route::get('/top-up-phone', [PageController::class, 'topUpPhone'])->name('topUpPhone');
+    Route::get('/top-up-bill', [PageController::class, 'topUp'])->name('topUp');
     Route::get('/top-up-confirm', [PageController::class, 'topUpConfirm'])->name('topUpConfirm');
     Route::get('/top-up-complete', [PageController::class, 'topUpCompleteForm'])->name('topUpCompleteForm');
     Route::post('/top-up-complete', [PageController::class, 'topUpComplete'])->name('topUpComplete');

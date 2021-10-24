@@ -3,7 +3,7 @@
 @section('subtitle', 'WavePay')
 
 @section('content')
-    <div class="topup_detail mt-5">
+    <div class="topup_detail mt-4">
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -13,9 +13,9 @@
                         </div>
                         <div class="text-center mb-4">
                             <h6 class="mb-4">ဖုန်းဘေလ်ဖြည့်ခြင်း အောင်မြင်ပါတယ်</h6>
-                            <h4 class="mb-3"><span class="text-primary">{{number_format($transaction->trx_amount)}}</span> ကျပ်</h4>
+                            <h4 class="mb-3"><span class="text-primary">{{number_format($transaction->bill_amount)}}</span> ကျပ်</h4>
                             <h5 class="mb-3">for</h5>
-                            <h4 class="font-weight-bold">{{$transaction->user ?  str_replace(0, '', $transaction->user->phone) : ' - '}}</h4>
+                            <h4 class="font-weight-bold">{{str_replace(0, '', $transaction->bill_phonenumber)}}</h4>
                         </div>
                         <hr>
                         <div class="row">
@@ -23,7 +23,16 @@
                                 <p class="mb-0">ဖုန်းဘေလ်ပမာဏ</p>
                             </div>
                             <div class="col-6 text-right">
-                                <p class="eng_letter mb-0"><span class="font-weight-bold">{{number_format($transaction->trx_amount)}}</span> ကျပ်</p>
+                                <p class="eng_letter mb-0"><span class="font-weight-bold">{{number_format($transaction->bill_amount)}}</span> ကျပ်</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6 pl-3">
+                                <p class="mb-0">အော်ပရေတာ</p>
+                            </div>
+                            <div class="col-6 text-right">
+                                <p class="eng_letter mb-0"><span class="font-weight-bold">{{ucfirst($transaction->operator_name)}}</span></p>
                             </div>
                         </div>
                         <hr>
