@@ -268,31 +268,36 @@ class PageController extends Controller
         return view('frontend.topUpPhone', compact('user'));
     }
 
-    public function topUp(TopUpPhoneRequest $request)
+    public function checkOperator($phone_number)
     {
-        $user = Auth::user();
-        $bill_phone = $request->bill_phone;
         $ooredoo = "/^(09|\+?959)9(5|7|6)\d{7}$/";
         $telenor = "/^(09|\+?959)7([5-9])\d{7}$/";
         $mytel = "/^(09|\+?959)6(8|9)\d{7}$/";
         $mpt = "/^(09|\+?959)(5\d{6}|4\d{7,8}|2\d{6,8}|3\d{7,8}|6\d{6}|8\d{6}|7\d{7}|9(0|1|9)\d{5,6}|2[0-4]\d{5}|5[0-6]\d{5}|8[13-7]\d{5}|3[0-369]\d{6}|34\d{7}|4[1379]\d{6}|73\d{6}|91\d{6}|25\d{7}|26[0-5]\d{6}|40[0-4]\d{6}|42\d{7}|45\d{7}|89[6789]\d{6}|)$/";
         $billPhoneName = '';
 
-        if(preg_match($ooredoo, $bill_phone)) {
-            $billPhoneName = 'ooredoo';
+        if(preg_match($ooredoo, $phone_number)) {
+            return $billPhoneName = 'ooredoo';
         }
 
-        if(preg_match($telenor, $bill_phone)) {
-            $billPhoneName = 'telenor';
+        if(preg_match($telenor, $phone_number)) {
+            return $billPhoneName = 'telenor';
         }
 
-        if(preg_match($mytel, $bill_phone)) {
-            $billPhoneName = 'mytel';
+        if(preg_match($mytel, $phone_number)) {
+            return $billPhoneName = 'mytel';
         }
 
-        if(preg_match($mpt, $bill_phone)) {
-            $billPhoneName = 'mpt';
+        if(preg_match($mpt, $phone_number)) {
+            return $billPhoneName = 'mpt';
         }
+    }
+
+    public function topUp(TopUpPhoneRequest $request)
+    {
+        $user = Auth::user();
+        $bill_phone = $request->bill_phone;
+        $billPhoneName = $this->checkOperator($bill_phone);
 
         if(!$billPhoneName) {
             return back()->withErrors(['fails' => 'ဖုန်းနံပါတ်မှားယွင်းနေပါသည်။'])->withInput();
@@ -306,28 +311,7 @@ class PageController extends Controller
         $user = Auth::user();
         $another_topup_amount = $request->another_topup_amount;
         $bill_phone = $request->bill_phone;
-
-        $ooredoo = "/^(09|\+?959)9(5|7|6)\d{7}$/";
-        $telenor = "/^(09|\+?959)7([5-9])\d{7}$/";
-        $mytel = "/^(09|\+?959)6(8|9)\d{7}$/";
-        $mpt = "/^(09|\+?959)(5\d{6}|4\d{7,8}|2\d{6,8}|3\d{7,8}|6\d{6}|8\d{6}|7\d{7}|9(0|1|9)\d{5,6}|2[0-4]\d{5}|5[0-6]\d{5}|8[13-7]\d{5}|3[0-369]\d{6}|34\d{7}|4[1379]\d{6}|73\d{6}|91\d{6}|25\d{7}|26[0-5]\d{6}|40[0-4]\d{6}|42\d{7}|45\d{7}|89[6789]\d{6}|)$/";
-        $billPhoneName = '';
-
-        if(preg_match($ooredoo, $bill_phone)) {
-            $billPhoneName = 'ooredoo';
-        }
-
-        if(preg_match($telenor, $bill_phone)) {
-            $billPhoneName = 'telenor';
-        }
-
-        if(preg_match($mytel, $bill_phone)) {
-            $billPhoneName = 'mytel';
-        }
-
-        if(preg_match($mpt, $bill_phone)) {
-            $billPhoneName = 'mpt';
-        }
+        $billPhoneName = $this->checkOperator($bill_phone);
 
         if($billPhoneName !== $request->billPhoneName) {
             return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
@@ -362,28 +346,7 @@ class PageController extends Controller
         $user = Auth::user();
         $bill_amount = $request->bill_amount;
         $bill_phone = $request->bill_phone;
-
-        $ooredoo = "/^(09|\+?959)9(5|7|6)\d{7}$/";
-        $telenor = "/^(09|\+?959)7([5-9])\d{7}$/";
-        $mytel = "/^(09|\+?959)6(8|9)\d{7}$/";
-        $mpt = "/^(09|\+?959)(5\d{6}|4\d{7,8}|2\d{6,8}|3\d{7,8}|6\d{6}|8\d{6}|7\d{7}|9(0|1|9)\d{5,6}|2[0-4]\d{5}|5[0-6]\d{5}|8[13-7]\d{5}|3[0-369]\d{6}|34\d{7}|4[1379]\d{6}|73\d{6}|91\d{6}|25\d{7}|26[0-5]\d{6}|40[0-4]\d{6}|42\d{7}|45\d{7}|89[6789]\d{6}|)$/";
-        $billPhoneName = '';
-
-        if(preg_match($ooredoo, $bill_phone)) {
-            $billPhoneName = 'ooredoo';
-        }
-
-        if(preg_match($telenor, $bill_phone)) {
-            $billPhoneName = 'telenor';
-        }
-
-        if(preg_match($mytel, $bill_phone)) {
-            $billPhoneName = 'mytel';
-        }
-
-        if(preg_match($mpt, $bill_phone)) {
-            $billPhoneName = 'mpt';
-        }
+        $billPhoneName = $this->checkOperator($bill_phone);
 
         if($billPhoneName !== $request->billPhoneName) {
             return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
@@ -419,7 +382,7 @@ class PageController extends Controller
             $transaction_bill->save();
             
             DB::commit();
-            return redirect()->route('user.topUpDetail', $transaction_bill->trx_id)->with('fill_bill', 'ဖုန်းဘေလ် '. number_format($bill_amount) .' ကျပ်ကို ' . $bill_phone . ' သို့ဖြည့်ပေးပြီးပါပြီ။');
+            return redirect()->route('user.topUpDetail', $transaction_bill->trx_id)->with('fill_bill', 'ဖုန်းဘေလ် '. number_format($bill_amount) .' ကျပ်အား ' . $bill_phone . ' သို့ဖြည့်ပေးပြီးပါပြီ။');
         } catch (\Exception $e) {
             DB::rollback();
             return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
