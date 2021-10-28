@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-center align-items-center" style="height: 60vh">
             <div class="col-md-8 p-0">
                 @include('frontend.layouts.flash')
-                <h5 class="text-center mb-4">Wave Pay QR ကို Scan ဖတ်ပါ။</h5>
+                <h5 class="text-center mb-4">@lang('public.scan_pay')</h5>
                 <div class="text-center">
                     <video id="preview" width="380"></video>
                 </div>

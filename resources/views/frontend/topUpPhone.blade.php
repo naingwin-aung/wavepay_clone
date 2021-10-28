@@ -10,11 +10,11 @@
                     <div class="card-body">
                         <form action="{{route('user.topUp')}}" id="topUp_phone" autocomplete="off">
                             <div class="form-group">
-                                <label>ဖုန်းဘေလ်ထည့်လိုသော ဖုန်းနံပါတ်</label>
+                                <label>@lang('public.top_up_phonenumber')</label>
                                 <input type="number" class="form-control" name="bill_phone" value="{{old('bill_phone', $user->phone)}}">
                             </div>
     
-                            <button type="submit" class="btn btn-primary btn-block">ရှေ့ဆက်ရန်</button>
+                            <button type="submit" class="btn btn-primary btn-block">@lang('public.continue')</button>
                         </form>
     
                         @if ($errors->any())

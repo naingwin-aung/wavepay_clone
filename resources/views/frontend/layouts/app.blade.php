@@ -80,7 +80,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        @if (Request::is('transaction') || Request::is('top-up') || Request::is('setting') || Request::is('changeLanguage'))
+                        @if (Request::is('transfer') || Request::is('transaction') || Request::is('top-up') || Request::is('setting') || Request::is('changeLanguage') || Request::is('top-up-bill') || Request::is('top-up-phone'))
                             <a href="#" class="btn_back">
                                 <i class="fas fa-arrow-left"></i>
                             </a>

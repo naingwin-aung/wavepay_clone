@@ -1,16 +1,15 @@
 @extends('frontend.layouts.app')
 @section('title', 'TopUp')
 @section('subtitle')
-    <span class="text-dark font-weight-bold h5">ဖုန်းငွေဖြည့်</span>
+    <span class="text-dark font-weight-bold h5">@lang('public.topup')</span>
 @endsection
 
 @section('content')
     <div class="topup">
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
-                <h6 class="text-center mb-3">သင့်ဖုန်းကို bill ထည့်နိုင်သည်။</h6>
                 <div>
-                    <p class="font-weight-bold">အော်ပရေတာ</p>
+                    <p class="font-weight-bold">@lang('public.operator')</p>
                     <div class="d-flex justify-content-between mt-4">
                       <div>
                           <span class="operator mb-0 {{$billPhoneName === 'telenor' ? 'active' : ''}}" id="operators">Telenor</span>
@@ -29,8 +28,8 @@
                 <hr class="mt-4">
                 
                 <div class="topup_amount">
-                    <h5>ငွေပမာဏထည့်ပါ</h5>
-                    <p class="mt-2">လက်ကျန်ငွေ {{$user->wallet ? number_format($user->wallet->amount) : '- '}} ကျပ်</p>
+                    <h5>@lang('public.choose_topup')</h5>
+                    <p class="mt-2">@lang('public.balance') {{$user->wallet ? number_format($user->wallet->amount) : '- '}} <span>@lang('public.kyat')</span></p>
 
                     <form action="{{route('user.topUpConfirm')}}" method="GET" id="topup" class="mt-4">
                         <input type="hidden" name="billPhoneName" value="{{$billPhoneName}}">
@@ -78,13 +77,14 @@
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <input type="number" class="form-control another_amount" name="another_topup_amount" placeholder="အခြားပမာဏ" value="{{old('another_topup_amount')}}">
+                            <input type="number" class="form-control another_amount" name="another_topup_amount" placeholder="@lang('public.other_amount')" value="{{old('another_topup_amount')}}">
                         </div>
+                        <p class="mb-0">@lang('public.enter_multiple')</p>
 
                         @include('frontend.layouts.flash')
 
                         <div class="d-flex justify-content-center mt-5">
-                            <button class="btn btn_theme">သေချာပါသည်။</button>
+                            <button class="btn btn_theme">@lang('public.continue')</button>
                         </div>
                     </form>
                 </div>
