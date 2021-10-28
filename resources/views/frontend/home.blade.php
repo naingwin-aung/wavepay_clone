@@ -11,7 +11,7 @@
                 </a>
                 <div class="user_info mt-2">
                     <h5 class="font-weight-bold">{{$auth_user->name}}</h5>
-                    <h5 id="is_show" class="show toggle_wallet">***** ကျပ် <i class="fas fa-eye-slash ps-show-hide" id="toggle_btn"></i></h5>
+                    <h5 id="is_show" class="show toggle_wallet">***** <span class="@if(App::isLocale('en')) small @endif">@lang('public.kyat')</span> <i class="fas fa-eye-slash ps-show-hide" id="toggle_btn"></i></h5>
                 </div>
             </div>
         </div>
@@ -22,19 +22,31 @@
     <div class="col-12">
         <div class="card shadow-sm features">
             <div class="card-body pl-1 pr-3">
-                <div class="d-flex justify-content-between">
-                    <a href="{{route('user.transferForm')}}" class="feature">
-                        <img src="{{asset('/images/transfer.png')}}" class="mb-3" alt="">
-                        <p class="mb-0">ငွေလွှဲ</p>
-                    </a>
-                    <a href="{{route('user.transaction')}}" class="feature">
-                        <img src="{{asset('/images/transaction.png')}}" class="mb-3" alt="">
-                        <p class="mb-0">စာရင်း</p>
-                    </a>
-                    <a href="{{route('user.topUpPhone')}}" class="feature">
-                        <img src="{{asset('/images/topup.png')}}" class="mb-3" alt="">
-                        <p class="mb-0">ဖုန်းငွေဖြည့်</p>
-                    </a>
+                <div class="row">
+                    <div class="col-4 d-flex justify-content-center feature">
+                        <a href="{{route('user.transferForm')}}">
+                            <div class="text-center">
+                                <img src="{{asset('/images/transfer.png')}}" class="mb-3" alt="">
+                            </div>
+                            <p class="mb-0 @if (App::isLocale('en')) ml-3 @endif">@lang('public.send_money')</p>
+                        </a>
+                    </div>
+                    <div class="col-4 d-flex justify-content-center feature">
+                        <a href="{{route('user.transaction')}}" >
+                            <div class="text-center">
+                                <img src="{{asset('/images/transaction.png')}}" class="mb-3" alt="">
+                            </div>
+                            <p class="mb-0">@lang('public.history')</p>
+                        </a>
+                    </div>
+                    <div class="col-4 d-flex justify-content-center feature">
+                        <a href="{{route('user.topUpPhone')}}" >
+                            <div class="text-center">
+                                <img src="{{asset('/images/topup.png')}}" class="mb-3" alt="">
+                            </div>
+                            <p class="mb-0">@lang('public.topup')</p>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,11 +58,11 @@
             $(document).on('click', '.ps-show-hide', function(e) {
                 if($('#is_show').hasClass('show')) {
                     $('.toggle_wallet').html('');
-                    $('.toggle_wallet').html('{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}} ကျပ် <i class="fas fa-eye ps-show-hide" id="toggle_btn"></i>');
+                    $('.toggle_wallet').html('{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}} <span class="@if(App::isLocale('en')) small @endif">@lang('public.kyat')</span> <i class="fas fa-eye ps-show-hide" id="toggle_btn"></i>');
                     $('#is_show').removeClass('show');
                 } else if (!$('#is_show').hasClass('show')){   
                     $('.toggle_wallet').html('');
-                    $('.toggle_wallet').html('***** ကျပ် <i class="fas fa-eye-slash ps-show-hide" id="toggle_btn"></i>');
+                    $('.toggle_wallet').html('***** <span class="@if(App::isLocale('en')) small @endif">@lang('public.kyat')</span> <i class="fas fa-eye-slash ps-show-hide" id="toggle_btn"></i>');
                     $('#is_show').addClass('show');
                 }
             })

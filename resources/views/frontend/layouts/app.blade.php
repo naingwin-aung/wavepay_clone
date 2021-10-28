@@ -27,34 +27,52 @@
             <div class="user_info text-center mb-4">
                 <img src="{{auth()->user()->profile_img_path()}}" alt="User Image" class="profile_img mb-3">
                 <h5>{{auth()->user()->name}}</h5>
-                <p class="text-primary">{{Auth::user()->wallet ? number_format(Auth::user()->wallet->amount) : ' - '}} <span>ကျပ်</span></p>
+                <p class="text-primary">{{Auth::user()->wallet ? number_format(Auth::user()->wallet->amount) : ' - '}} <span>@lang('public.kyat')</span></p>
             </div>
             <div>
-                <a href="{{route('user.info')}}" class="">
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            <i class="fas fa-user"></i>
+                <div class="mb-3">
+                    <a href="{{route('user.info')}}">
+                        <div class="row">
+                            <div class="col-3 text-right">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="col-9 pl-2">
+                                @lang('public.profile')
+                            </div>
                         </div>
-                        <div class="mr-4">
-                            ကိုယ်ရေးအချက်အလက်
+                    </a>
+                    <hr>
+                </div>
+               
+                <div class="mb-3">
+                    <a href="{{route('user.setting')}}">
+                        <div class="row">
+                            <div class="col-3 text-right">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <div class="col-9 pl-2">
+                                @lang('public.setting')
+                            </div>
                         </div>
-                    </div>
-                </a>
-                <hr>
-                <a href="#" class="logout_btn">
-                    <div class="d-flex justify-content-around">
-                        <div>
-                            <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                    <hr>
+                </div>
+                <div class="mb-3">
+                    <a href="#" class="logout_btn">
+                        <div class="row">
+                            <div class="col-3 text-right">
+                                <i class="fas fa-sign-out-alt"></i>
+                            </div>
+                            <div class="col-9 pl-2">
+                                @lang('public.logout')
+                            </div>
+                            <form action="{{route('logout')}}" method="POST" id="logout_submit">
+                                @csrf
+                            </form>
                         </div>
-                        <div class="mr-4">
-                            ထွက်မည်။
-                        </div>
-                        <form action="{{route('logout')}}" method="POST" id="logout_submit">
-                            @csrf
-                        </form>
-                    </div>
-                </a>
-                <hr>
+                    </a>
+                    <hr>
+                </div>
             </div>
         </div>
         
@@ -62,7 +80,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between">
-                        @if (Request::is('transaction') || Request::is('top-up'))
+                        @if (Request::is('transaction') || Request::is('top-up') || Request::is('setting') || Request::is('changeLanguage'))
                             <a href="#" class="btn_back">
                                 <i class="fas fa-arrow-left"></i>
                             </a>
@@ -86,13 +104,13 @@
                 <div class="col-md-8">
                     <div class=" d-flex justify-content-between">
                         <div class="text-center">
-                            <a href="{{route('user.home')}}"><i class="fas fa-home p-0"></i> <p class="mb-0">ပင်မ</p></a>
+                            <a href="{{route('user.home')}}"><i class="fas fa-home p-0"></i> <p class="mb-0">@lang('public.home')</p></a>
                         </div>  
                         <div class="text-center">
-                            <a href="{{route('user.receiveQr')}}"><img src="{{asset('images/qr-code.png')}}" alt="Qr-code"> <p class="mb-0">My QR</p></a>
+                            <a href="{{route('user.receiveQr')}}"><img src="{{asset('images/qr-code.png')}}" alt="Qr-code"> <p class="mb-0">@lang('public.my_qr')</p></a>
                         </div>
                         <div class="text-center">
-                            <a href="{{route('user.scanAndPay')}}"><img src="{{asset('images/scan.png')}}" alt="Qr-code"> <p class="mb-0">QR ပေး</p></a>
+                            <a href="{{route('user.scanAndPay')}}"><img src="{{asset('images/scan.png')}}" alt="Qr-code"> <p class="mb-0">@lang('public.qr_pay')</p></a>
                         </div>
                         <div class="text-center bottom_notification">
                             @if ($unread_noti_count != 0)
@@ -100,7 +118,7 @@
                                     {{$unread_noti_count}}
                                 </span>
                             @endif
-                            <a href="{{route('user.notificationindex')}}"><img src="{{asset('images/envelope.png')}}" alt="Qr-code"> <p class="mb-0">၀င်စာ</p></a>
+                            <a href="{{route('user.notificationindex')}}"><img src="{{asset('images/envelope.png')}}" alt="Qr-code"> <p class="mb-0">@lang('public.inbox')</p></a>
                         </div>
                     </div>
                 </div>

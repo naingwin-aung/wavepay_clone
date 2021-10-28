@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Http\FormRequest;
 
 class TransferFormRequest extends FormRequest
@@ -26,5 +27,18 @@ class TransferFormRequest extends FormRequest
         return [
             'to_phone' => ['required','numeric','regex:/^(09|\+?950?9|\+?95950?9)\d{7,9}$/'],
         ];
+    }
+
+    public function messages()
+    {
+        if(App::isLocale('en')) {
+            return [
+                'to_phone.regex' => 'Phone number is wrong',
+            ];
+        } else if(App::isLocale('mm')) {
+            return [
+                'to_phone.regex' => 'ဖုန်းနံပါတ် မှားယွင်းနေပါသည်။',
+            ];
+        }
     }
 }

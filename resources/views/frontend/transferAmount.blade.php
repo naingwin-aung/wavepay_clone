@@ -14,14 +14,14 @@
                         <form action="{{route('user.transferConfirmForm')}}" id="transfer_amount" autocomplete="off" method="GET">
                             <input type="hidden" name="to_phone" value="{{$to_account->phone}}">
                             <div class="form-group">
-                                <label>ငွေပမာဏ</label>
+                                <label>@lang('public.amount')</label>
                                 <input type="number" class="form-control" name="amount" value="{{old('amount')}}">
                             </div>
                             
                             <p class="mb-4">
-                                လက်ကျန်ငွေ - <span class="eng_letter text-primary">{{$from_account->wallet ? number_format($from_account->wallet->amount) : ' - '}} ကျပ်</span> 
+                                @lang('public.balance') - <span class="eng_letter text-primary">{{$from_account->wallet ? number_format($from_account->wallet->amount) : ' - '}} @lang('public.kyat')</span> 
                             </p>
-                            <button type="submit" class="btn btn-primary btn-block">ရှေ့ဆက်ရန်</button>
+                            <button type="submit" class="btn btn-primary btn-block">@lang('public.continue')</button>
                         </form>
 
                         @if ($errors->any())

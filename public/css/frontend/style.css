@@ -41,6 +41,7 @@ input[type="number"] {
 }
 
 a {
+    color: black;
     text-decoration: none;
 }
 
@@ -100,7 +101,7 @@ a:hover {
 
 .logo {
     color: #008cc1;
-    font-family: "Roboto", sans-serif;
+    /* font-family: "Roboto", sans-serif; */
 }
 
 /* Sidebar */
