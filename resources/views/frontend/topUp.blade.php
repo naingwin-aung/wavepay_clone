@@ -12,16 +12,16 @@
                     <p class="font-weight-bold">@lang('public.operator')</p>
                     <div class="d-flex justify-content-between mt-4">
                       <div>
-                          <span class="operator mb-0 {{$billPhoneName === 'telenor' ? 'active' : ''}}" id="operators">Telenor</span>
+                          <span class="operator mb-0 {{$billPhoneName === 'telenor' ? 'active' : ''}}" id="operators">@lang('public.telenor')</span>
                       </div>
                       <div>
-                          <span class="operator mb-0 {{$billPhoneName === 'ooredoo' ? 'active' : ''}}" id="operators">Ooredoo</span>
+                          <span class="operator mb-0 {{$billPhoneName === 'ooredoo' ? 'active' : ''}}" id="operators">@lang('public.ooredoo')</span>
                       </div>
                       <div>
-                          <span class="operator mb-0 {{$billPhoneName === 'mpt' ? 'active' : ''}}" id="operators">MPT</span>
+                          <span class="operator mb-0 {{$billPhoneName === 'mpt' ? 'active' : ''}}" id="operators">@lang('public.mpt')</span>
                       </div>
                       <div>
-                          <span class="operator mb-0 {{$billPhoneName === 'mytel' ? 'active' : ''}}" id="operators">Mytel</span>
+                          <span class="operator mb-0 {{$billPhoneName === 'mytel' ? 'active' : ''}}" id="operators">@lang('public.mytel')</span>
                       </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="topup_amount" id="exampleRadios1" value="500">
                                     <label class="form-check-label" for="exampleRadios1">
-                                      500
+                                      @lang('public.500')
                                     </label>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="topup_amount" id="exampleRadios2" value="1000">
                                     <label class="form-check-label" for="exampleRadios2">
-                                        1,000
+                                        @lang('public.1000')
                                     </label>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="topup_amount" id="exampleRadios3" value="3000">
                                     <label class="form-check-label" for="exampleRadios3">
-                                        3,000
+                                        @lang('public.3000')
                                     </label>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="topup_amount" id="exampleRadios4" value="5000">
                                     <label class="form-check-label" for="exampleRadios4">
-                                        5,000
+                                        @lang('public.5000')
                                     </label>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="topup_amount" id="exampleRadios5" value="10000">
                                     <label class="form-check-label" for="exampleRadios5">
-                                        10,000
+                                        @lang('public.10000')
                                     </label>
                                 </div>
                             </div>

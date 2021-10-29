@@ -31,14 +31,10 @@ class TransferFormRequest extends FormRequest
 
     public function messages()
     {
-        if(App::isLocale('en')) {
-            return [
-                'to_phone.regex' => 'Phone number is wrong',
-            ];
-        } else if(App::isLocale('mm')) {
-            return [
-                'to_phone.regex' => 'ဖုန်းနံပါတ် မှားယွင်းနေပါသည်။',
-            ];
-        }
+        return [
+            'to_phone.required' => __('request.to_phone.required'),
+            'to_phone.numeric' => __('request.to_phone.numeric'),
+            'to_phone.regex' => __('request.to_phone.regex'),
+        ];
     }
 }

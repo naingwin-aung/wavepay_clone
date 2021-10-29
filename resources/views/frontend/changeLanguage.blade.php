@@ -8,7 +8,7 @@
     <div class="scanPay">
         <div class="d-flex justify-content-center">
             <div class="col-md-8">
-                <a href="{{route('user.setLang', 'mm')}}">
+                <a href="{{route("user.setLang", 'mm')}}" id="mm">
                     <div class="card mb-1">
                         <div class="card-body py-3">
                             @if (App::isLocale('mm'))
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="{{route('user.setLang', 'en')}}">
+                <a href="{{route("user.setLang", 'en')}}" id="en">
                     <div class="card">
                         <div class="card-body py-3">
                             @if (App::isLocale('en'))

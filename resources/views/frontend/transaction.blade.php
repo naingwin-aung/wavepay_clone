@@ -48,7 +48,7 @@
                                             </div>
                                             <div class="col-7 ml-4 px-0">
                                             @if ($transaction->type == 'income')
-                                                    <p class="mb-1 font-weight-bold">ငွေသွင်း</p>
+                                                    <p class="mb-1 font-weight-bold">@lang('public.receive_money')</p>
                                                 @else @if ($transaction->type == 'expense')
                                                         <p class="mb-1 font-weight-bold">@lang('public.send_money')</p>
                                                 @endif

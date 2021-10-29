@@ -27,4 +27,13 @@ class TopUpPhoneRequest extends FormRequest
             'bill_phone' => ['required','numeric','regex:/^(09|\+?950?9|\+?95950?9)\d{7,9}$/'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'bill_phone.required' => __('request.bill_phone.required'), 
+            'bill_phone.numeric' => __('request.phone.numeric'), 
+            'bill_phone.regex' => __('request.phone.regex'), 
+        ];
+    }
 }
