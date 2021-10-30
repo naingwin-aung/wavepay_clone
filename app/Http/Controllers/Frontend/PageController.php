@@ -8,6 +8,7 @@ use App\Helper\UUIDGenerate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\TopUpRequest;
+use Illuminate\Support\Facades\App;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -48,6 +49,9 @@ class PageController extends Controller
         $user = Auth::user();
 
         if(!Hash::check($request->current_password, $user->password)) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Pin Wrong! Try Again'])->withInput();
+            }
             return back()->withErrors(['fail' => 'လျှို့၀ှက် နံပါတ် မှားယွင်းနေပါသည်။'])->withInput();
         }
 
@@ -76,6 +80,10 @@ class PageController extends Controller
 
         Notification::send($user, new GeneralNotification($title, $message, $sourceable_id, $sourceable_type, $web_link));
 
+        if(App::isLocale('en')) {
+            return redirect()->route('user.info')->with('update_password', 'Password and profile is changed Successfully');
+        }
+
         return redirect()->route('user.info')->with('update_password', 'လျှို့ ဝှက်နံပါတ် (သို့) ပုံပြောင်းလဲပြီးပါပီ။');
     }
 
@@ -91,11 +99,17 @@ class PageController extends Controller
         $to_account = User::where('phone', $request->to_phone)->first();
 
         if(!$to_account) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number does not have wave pay account.'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် wavepay account မရှိသေးပါ'])->withInput();
         }
 
         if($to_account->phone === $from_account->phone)
         {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number must not your phone number'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် မိမိဖုန်းနံပါတ် မဟုတ်ရပါ။'])->withInput();
         }
 
@@ -108,17 +122,26 @@ class PageController extends Controller
         $to_account = User::where('phone', $request->to_phone)->first();
 
         if(!$to_account) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number does not have wave pay account.'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် wavepay account မရှိသေးပါ'])->withInput();
         }
 
         if($to_account->phone === $from_account->phone)
         {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number must not your phone number'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် မိမိဖုန်းနံပါတ် မဟုတ်ရပါ။'])->withInput();
         }
 
         $amount = $request->amount;
 
         if($from_account->wallet->amount < $amount) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Insufficient Balance'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလွှဲလိုသော ပမာဏမလုံလောက်ပါ။'])->withInput();
         }
 
@@ -131,6 +154,12 @@ class PageController extends Controller
     {
         $password = $request->password;
         if(!$password) {
+            if(App::isLocale('en')) {
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'Enter Pin number',
+                ]);
+            }
             return response()->json([
                 'status' => 'fail',
                 'message' => 'လျို့၀ှက်နံပါတ် ထည့်ပါ။'
@@ -139,6 +168,12 @@ class PageController extends Controller
 
         $user = Auth::user();
         if(!Hash::check($password, $user->password)) {
+            if(App::isLocale('en')) {
+                return response()->json([
+                    'status' => 'fail',
+                    'message' => 'Pin Wrong, Try again!',
+                ]);
+            }
             return response()->json([
                 'status' => 'fail',
                 'message' => 'လျို့၀ှက် နံပါတ်မှားယွင်းနေပါသည်။',
@@ -156,17 +191,26 @@ class PageController extends Controller
         $to_account = User::where('phone', $request->to_phone)->first();
 
         if(!$to_account) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number does not have wave pay account.'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် wavepay account မရှိသေးပါ'])->withInput();
         }
 
         if($to_account->phone === $from_account->phone)
         {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number must not your phone number'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် မိမိဖုန်းနံပါတ် မဟုတ်ရပါ။'])->withInput();
         }
 
         $amount = $request->amount;
 
         if($from_account->wallet->amount < $amount) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Insufficient Balance'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလွှဲလိုသော ပမာဏမလုံလောက်ပါ။'])->withInput();
         }
 
@@ -235,6 +279,9 @@ class PageController extends Controller
             return redirect()->route('user.transactionDetail', $from_account_transaction->trx_id)->with('money_transfer', 'ငွေလွှဲလိုက်သော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို လက်ခံသူ '. $to_account->name . ' ('. $to_account->phone .')' . ' သို့ပေးပို့ပြီးပါပြီ။');
        } catch (\Exception $e) {
            DB::rollback();
+           if(App::isLocale('en')) {
+            return back()->withErrors(['fails' => 'Something Wrong! Try Again'])->withInput();
+         }
            return back()->withErrors(['fails' => 'ပြန်လည်ကြိူးစားပါ။'])->withInput();
        }
     }
@@ -300,6 +347,9 @@ class PageController extends Controller
         $billPhoneName = $this->checkOperator($bill_phone);
 
         if(!$billPhoneName) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Invalid phone number'])->withInput();
+            }
             return back()->withErrors(['fails' => 'ဖုန်းနံပါတ်မှားယွင်းနေပါသည်။'])->withInput();
         }
 
@@ -314,23 +364,35 @@ class PageController extends Controller
         $billPhoneName = $this->checkOperator($bill_phone);
 
         if($billPhoneName !== $request->billPhoneName) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Something Wrong! Try Again'])->withInput();
+            }
             return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
         }
 
         if(!$another_topup_amount) {
             if(!$request->topup_amount) {
-                return back()->withErrors(['fails' => 'ပမာဏ ထည့်ရန်လိုအပ်သည်။'])->withInput();
+                if(App::isLocale('en')) {
+                    return back()->withErrors(['fails' => 'Topup amount is required'])->withInput();
+                }
+                return back()->withErrors(['fails' => 'ဖုန်းဘေလ်ပမာဏ ထည့်ရန်လိုအပ်သည်။'])->withInput();
             }
         }
 
         if($another_topup_amount) {
             $fillBill = $another_topup_amount % 1000;
             if($fillBill !== 0 || $another_topup_amount > 30000) {
-                return back()->withErrors(['fails' => 'ပမာဏသည် ၁၀၀၀ နှင့်စား၍ပြတ်ပြီး အများဆုံး ၃၀၀၀၀ ဖြစ်ရမည်၊'])->withInput();
+                if(App::isLocale('en')) {
+                    return back()->withErrors(['fails' => 'Topup amount must be divided by 1000 kyat and maximun amount must be 30000 kyat'])->withInput();
+                }
+                return back()->withErrors(['fails' => 'ဖုန်းဘေလ်ပမာဏသည် ၁၀၀၀ နှင့်စား၍ပြတ်ပြီး အများဆုံး ၃၀၀၀၀ ဖြစ်ရမည်၊'])->withInput();
             }
         }
 
         if($user->wallet->amount < $request->topup_amount || $user->wallet->amount < $another_topup_amount) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Insufficient Balance'])->withInput();
+            }
             return back()->withErrors(['fails' => 'ပမာဏ မလုံလောက်ပါ။'])->withInput();
         }
 
@@ -349,20 +411,32 @@ class PageController extends Controller
         $billPhoneName = $this->checkOperator($bill_phone);
 
         if($billPhoneName !== $request->billPhoneName) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Something Wrong! Try Again'])->withInput();
+            }
             return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
         }
 
         if(!$bill_amount) {
-            return back()->withErrors(['fails' => 'ပမာဏ ထည့်ရန်လိုအပ်သည်။'])->withInput();
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Topup amount is required'])->withInput();
+            }
+            return back()->withErrors(['fails' => 'ဖုန်းဘေလ်ပမာဏ ထည့်ရန်လိုအပ်သည်။'])->withInput();
         }
 
         if($user->wallet->amount < $bill_amount) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Insufficient Balance'])->withInput();
+            }
             return back()->withErrors(['fails' => 'ပမာဏ မလုံလောက်ပါ။'])->withInput();
         }
 
         if($bill_amount > 500) {
             $fillBill = $bill_amount % 1000;
             if($fillBill !== 0 || $bill_amount > 30000) {
+                if(App::isLocale('en')) {
+                    return back()->withErrors(['fails' => 'Topup amount must be divided by 1000 kyat and maximun amount must be 30000 kyat'])->withInput();
+                }
                 return back()->withErrors(['fails' => 'ပမာဏသည် ၁၀၀၀ နှင့်စား၍ပြတ်ပြီး အများဆုံး ၃၀၀၀၀ ဖြစ်ရမည်၊'])->withInput();
             }
         }
@@ -385,6 +459,9 @@ class PageController extends Controller
             return redirect()->route('user.topUpDetail', $transaction_bill->trx_id)->with('fill_bill', 'ဖုန်းဘေလ် '. number_format($bill_amount) .' ကျပ်အား ' . $bill_phone . ' သို့ဖြည့်ပေးပြီးပါပြီ။');
         } catch (\Exception $e) {
             DB::rollback();
+            if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Something Wrong! Try Again'])->withInput();
+            }
             return back()->withErrors(['fails' => 'တစ်ခုခု မှားယွင်းနေပါသည်။'])->withInput();
         }
     }
@@ -407,11 +484,17 @@ class PageController extends Controller
         $to_account = User::where('phone', $request->to_phone)->first();
 
         if(!$to_account) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number does not have wave pay account.'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် wavepay account မရှိသေးပါ'])->withInput();
         }
 
         if($to_account->phone === $from_account->phone)
         {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number must not your phone number'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် မိမိဖုန်းနံပါတ် မဟုတ်ရပါ။'])->withInput();
         }
 
@@ -424,17 +507,26 @@ class PageController extends Controller
         $to_account = User::where('phone', $request->to_phone)->first();
 
         if(!$to_account) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number does not have wave pay account.'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် wavepay account မရှိသေးပါ'])->withInput();
         }
 
         if($to_account->phone === $from_account->phone)
         {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number must not your phone number'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် မိမိဖုန်းနံပါတ် မဟုတ်ရပါ။'])->withInput();
         }
 
         $amount = $request->amount;
 
         if($from_account->wallet->amount < $amount) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Insufficient Balance'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလွှဲလိုသော ပမာဏမလုံလောက်ပါ။'])->withInput();
         }
 
@@ -449,17 +541,26 @@ class PageController extends Controller
         $to_account = User::where('phone', $request->to_phone)->first();
 
         if(!$to_account) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number does not have wave pay account.'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် wavepay account မရှိသေးပါ'])->withInput();
         }
 
         if($to_account->phone === $from_account->phone)
         {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Receiver\'s number must not your phone number'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလက်ခံသော ဖုန်းနံပါတ်သည် မိမိဖုန်းနံပါတ် မဟုတ်ရပါ။'])->withInput();
         }
 
         $amount = $request->amount;
 
         if($from_account->wallet->amount < $amount) {
+            if(App::isLocale('en')) {
+                return back()->withErrors(['transfer' => 'Insufficient Balance'])->withInput();
+            }
             return back()->withErrors(['transfer' => 'ငွေလွှဲလိုသော ပမာဏမလုံလောက်ပါ။'])->withInput();
         }
 
@@ -529,6 +630,9 @@ class PageController extends Controller
             return redirect()->route('user.transactionDetail', $from_account_transaction->trx_id)->with('money_transfer', 'ငွေလွှဲလိုက်သော ပမာဏ ' . number_format($amount) . ' ကျပ်ကို လက်ခံသူ '. $to_account->name . ' ('. $to_account->phone .')' . ' သို့ပေးပို့ပြီးပါပြီ။');
        } catch (\Exception $e) {
            DB::rollback();
+           if(App::isLocale('en')) {
+                return back()->withErrors(['fails' => 'Something Wrong! Try Again'])->withInput();
+            }
            return back()->withErrors(['fails' => 'ပြန်လည်ကြိူးစားပါ။'])->withInput();
        }
     }

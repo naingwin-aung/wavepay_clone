@@ -2,13 +2,13 @@
 
 return [
     'phone' => [
-        'numeric' => 'Phone number is wrong.',
-        'regex' => 'Phone number is wrong.',
+        'numeric' => 'Invalid phone number.',
+        'regex' => 'Invalid phone number.',
     ],
     'to_phone' => [
         'required' => 'Receiver phone number is required.',
-        'numeric' => 'Receiver phone number is wrong.',
-        'regex' => 'Receiver phone number is wrong.',
+        'numeric' => 'Invalid phone number.',
+        'regex' => 'Invalid phone number.',
     ],
     'amount' => [
         'required' => 'Amount is required.',

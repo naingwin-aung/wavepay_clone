@@ -79,7 +79,7 @@
                         <div class="form-group mt-3">
                             <input type="number" class="form-control another_amount" name="another_topup_amount" placeholder="@lang('public.other_amount')" value="{{old('another_topup_amount')}}">
                         </div>
-                        <p class="mb-0">@lang('public.enter_multiple')</p>
+                        <p class="mb-2">@lang('public.enter_multiple')</p>
 
                         @include('frontend.layouts.flash')
 
