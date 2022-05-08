@@ -55,4 +55,8 @@ return [
     'show_qr' => 'Let your sender scan this QR code to send money to you.',
     'my_number' => 'My number',
     'scan_pay' => 'Scan WavePay QR',  
+    // user-info
+    'phone' => 'Phone',
+    'email' => 'Email',
+    'update_my_info' => 'Update my Information', 
 ];

@@ -26,16 +26,16 @@
                      <div class="card-body">
                          <div class="row">
                              <div class="col-6 pr-0">
-                                 <p class="mb-0 mr-3 text-right">လက်ကျန်ငွေ</p>
+                                 <p class="mb-0 mr-3 text-right">@lang('public.balance')</p>
                              </div>
                              <div class="col-6 pl-0">
-                                 <p class="mb-0 mr-3 eng_letter"><span class="text-primary">{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}}</span> ကျပ်</p>
+                                 <p class="mb-0 mr-3 eng_letter"><span class="text-primary">{{$auth_user->wallet ? number_format($auth_user->wallet->amount) : ' - '}}</span> @lang('public.kyat')</p>
                              </div>
                          </div>
                      <hr>
                          <div class="row">
                              <div class="col-6 pr-0">
-                                 <p class="mb-0 mr-3 text-right">ဖုန်းနံပါတ်</p>
+                                 <p class="mb-0 mr-3 text-right">@lang('public.phone')</p>
                              </div>
                              <div class="col-6 pl-0">
                                  <p class="mb-0 mr-3 eng_letter" >{{$auth_user->phone}}</p>
@@ -44,7 +44,7 @@
                      <hr>
                          <div class="row">
                              <div class="col-6 pr-0">
-                                 <p class="mb-0 mr-3 text-right">အီးလ်မေး</p>
+                                 <p class="mb-0 mr-3 text-right">@lang('public.email')</p>
                              </div>
                              <div class="col-6 pl-0">
                                  <p class="mb-0 mr-3 eng_letter">{{$auth_user->email}}</p>
@@ -55,7 +55,7 @@
              
                  <div class="card mt-2">
                      <div class="card-body">
-                         <a href="{{route('user.userUpdateInfo')}}" class="mb-0"><i class="fas fa-caret-right mr-4"></i> ကိုယ်ရေးအချက်အလက်များ ပြင်ဆင်မည်။</a>
+                         <a href="{{route('user.userUpdateInfo')}}" class="mb-0"><i class="fas fa-caret-right mr-4"></i> @lang('public.update_my_info')</a>
                      </div>
                  </div>
              </div>
