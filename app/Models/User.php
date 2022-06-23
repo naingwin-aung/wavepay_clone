@@ -19,7 +19,7 @@ class User extends Authenticatable
      *
      * @var string[]
      */
-    protected $guarded = []; 
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -40,16 +40,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile_img_path() 
+    public function profile_img_path()
     {
-        if($this->profile_img) {
+        if ($this->profile_img) {
             return asset('storage/images/'. $this->profile_img);
         }
 
         return null;
     }
 
-    public function setPasswordAttribute($value) 
+    public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
     }
